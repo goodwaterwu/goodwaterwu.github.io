@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html>
+<title>cheat</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+</head>
+<style type="text/css">
+    a:link{
+        text-decoration:none;
+        color:white;
+    }
+    a:visited {
+        text-decoration:none;
+        color:white;
+    }
+    a:hover {
+        text-decoration:underline;
+        background-color:white;
+        color:black;
+    }
+    a:active {
+        text-decoration:none;
+        background-color:black;
+        color:white;
+    }
+    table, th, td {
+        border: 1px solid purple;
+        border-collapse: collapse;
+    }
+    th, td {
+        margin: 5px;
+        padding: 5px;
+    }
+    code {
+        border: 1px solid blue;
+        margin: 5px;
+        padding: 5px;
+        display: block;
+        white-space: pre-wrap;
+    }
+</style>
+<body bgcolor="#000000" text="#FFFFFF"><font size="+1">
+    <hr><h2><a id="debug">Debug</a></h2><hr>
+    <h3><font color="yellow"><a id="debug_common">Common</a></font></h3>
+        asm volatile("b .");<br><br>
+        printf("++++++++++ %s (file: %s line: %d)\n", __func__, __FILE__, __LINE__);<br><br>
+        printk(KERN_EMERG "++++++++++ %s (file: %s line: %d)\n", __func__, __FILE__, __LINE__);<br><br>
+        debug("++++++++++ %s (file: %s line: %d)\n", __func__, __FILE__, __LINE__);<br><br>
+        WARN_ON_ONCE(1);<br><br>
+        dump_stack();<br><br>
+        pmf -d -w 1<br><br>
+        pmf -e<br><br>
+        ifconfig eth0 promisc;killall tcpdump;cd /;mv captured_packets_dut.pcap captured_packets_dut.pcap.bak;nohup tcpdump -n -vvv -XX -i eth0 -w captured_packets_dut.pcap &<br><br>
+        <code>
+<b>Generate CA key</b><br>
+openssl genrsa -aes256 -out ca.key 4096<br>
+<b>Generate CA certificate</b><br>
+openssl req -x509 -new -nodes -key ca.key -sha256 -days 365000 -out ca.pem -subj '/C=US/ST=CA/L=Palo Alto/O=Plume Design Inc./emailAddress=support@plumewifi.com'<br>
+<b>Generate client key</b><br>
+openssl req -newkey rsa:2048 -nodes -days 365000 -keyout client_dec.key -out client-req.pem -subj "/C=US/ST=CA/L=Palo Alto/O=Plume Design Inc./CN=&lt;MAC&gt;/emailAddress=support@plumewifi.com"<br>
+<b>Generate client certificate</b><br>
+openssl x509 -req -days 365000 -set_serial 01 -in client-req.pem -out client.pem -CA ca.pem -CAkey ca.key<br>
+<b>Show certificate information</b><br>
+openssl x509 -noout -subject -in /client.pem<br>
+openssl x509 -noout -text -in /client.pem<br>
+        </code>
+    <hr><h2><a id="rm520ngl">Quectel RM520N-GL</a></h2><hr>
+    echo -e "AT+GSN\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+ICCID\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QPRTPARA=3\r" | microcom -t 1000 /dev/ttyUSB2<br><br>
+    # enable airplane mode<br><br>
+    echo -e "AT+CFUN=0\r" | microcom -t 1000 /dev/ttyUSB2<br><br>
+    # off airplane mode<br><br>
+    echo -e "AT+CFUN=1\r" | microcom -t 1000 /dev/ttyUSB2<br><br>
+    echo -e "AT+CFUN=1,1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+CFUN?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QGMR\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "ATI\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+CIMI\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QSIMSTAT?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QDSIM?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QDSIM=0\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QDSIM=1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+CSIM=14,\"00A40004023F00\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+CSIM=20,\"80AA000005A903830107\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QSIMCFG=\"eid\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QUIMSLOT?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QUIMSLOT=1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QUIMSLOT=2\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+CPIN?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QINISTAT?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QSIMDET?\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QUIMSLOT=2\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QESIM=\"lpa_enable\",1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QESIM=\"eid\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QCFG=\"data_interface\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QCFG=\"data_interface\",0,0\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QCFG=\"data_interface\",1,0\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QFTMMODE=1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QFTTESTEX=\"NR5G\",\"tx\",79,0,240,0,695090\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+EGMR=0,7\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QPRTPARA=4\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+EGMR=1,7,\"111111111111111\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+EGMR=1,7,\"868371050016985\"\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+EGMR=0,7\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QPRTPARA=1\r" | microcom -t 5500 /dev/ttyUSB2<br><br>
+    echo -e "AT+QPRTPARA=4\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+QINDCFG=\"all\",0,1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QPING=1,\"127.0.0.1\",1\r" | microcom -t 100 /dev/ttyUSB2<br><br>
+    echo -e "AT+QCAINFO\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+QMTUINFO\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+QIOPEN=1,2,\"UDP SERVICE\",\"127.0.0.1\",0,5001,0\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+QISTATE=0,1\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    echo -e "AT+QICLOSE=2\r" | microcom -t 800 /dev/ttyUSB2<br><br>
+    <hr><h2><a id="n76e003">Nuvoton N76E003</a></h2><hr>
+    <h3><font color="yellow"><a id="n76e003_command">Command</a></font></h3>
+        <table>
+            <tr>
+                <td>mcutest rfw</td>
+                <td>i2cset -y 0 0x52 0xa 0x9 && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest rrom</td>
+                <td>i2cset -y 0 0x52 0xa 0x8 && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest sfanspd 0</td>
+                <td>i2cset -y 0 0x52 0x1 0</td>
+            </tr>
+            <tr>
+                <td>mcutest sfanspd 5000</td>
+                <td>i2cset -y 0 0x52 0x1 0x53</td>
+            </tr>
+            <tr>
+                <td>mcutest gfanspd</td>
+                <td>i2cset -y 0 0x52 0xa 0xc && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest gfanpwm</td>
+                <td>i2cset -y 0 0x52 0xa 0xa && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest gadc</td>
+                <td>i2cset -y 0 0x52 0xa 0x6 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x7 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xd && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xe && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest sfanwd 0</td>
+                <td>i2cset -y 0 0x52 0x6 0x0 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest sfanwd 1</td>
+                <td>i2cset -y 0 0x52 0x6 0x1 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest sfanwdspd 5000</td>
+                <td>i2cset -y 0 0x52 0x7 0x52 && i2cset -y 0 0x52 0xa 0x5 && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest memdump</td>
+                <td>i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x1 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x2 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x3 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x5 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x6 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x7 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x8 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x9 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xa && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xb && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xc && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xd && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xe && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xf && i2cget -y 0 0x52 0x0</td>
+            </tr>
+            <tr>
+                <td>mcutest gold</td>
+                <td>i2cset -y 0 0x52 0xac</td>
+            </tr>
+            <tr>
+                <td>get_device_id</td>
+                <td>i2cset -y 0 0x52 0xa 0x2 && i2cget -y 0 0x52 0x0</td>
+            </tr>gz
+            <tr>
+                <td>mcupg rcfg</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td>mcupg wcfgl</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td>mcupg rfw</td>
+                <td>0x1</td>
+            </tr>
+            <tr>
+                <td>mcupg rfwd</td>
+                <td>/lib/firmware/nvtn_mcu/MCU_APROM.txt</td>
+            </tr>
+            <tr>
+                <td>mcupg rdevid</td>
+                <td>0x6</td>
+            </tr>
+            <tr>
+                <td>mcupg goap</td>
+                <td>0x21</td>
+            </tr>
+            <tr>
+                <td>mcupg upgrade auto</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td>mcupg upgrade aprom</td>
+                <td>X</td>
+            </tr>
+            <tr>
+                <td>mcupg rst</td>
+                <td>echo 9 > /sys/class/gpio/export;echo out > /sys/class/gpio/gpio9/direction;echo 0 > /sys/class/gpio/gpio9/value;sleep 1; echo 1 > /sys/class/gpio/gpio9/value</td>
+            </tr>
+        </table>
+        <h3><font color="yellow"><a id="n76e003_stop_fan_control">Stop auto fan control</a></font></h3>
+        killall fan_control.sh && mcutest sfanwd 0
+        <hr><h2><a id="gd32e230f8v6">GigaDevice FD32E230F8V6</a></h2><hr>
+        <h3><font color="yellow"><a id="gd32e230f8v6_command">Command</a></font></h3>
+            <table>
+                <tr>
+                    <td>mcutest rfw</td>
+                    <td>i2cset -y 0 0x52 0xa 0x9 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest rrom</td>
+                    <td>i2cset -y 0 0x52 0xa 0x8 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest sfanspd 0</td>
+                    <td>i2cset -y 0 0x52 0x1 0</td>
+                </tr>
+                <tr>
+                    <td>mcutest sfanspd 5000</td>
+                    <td>i2cset -y 0 0x52 0x1 0x53</td>
+                </tr>
+                <tr>
+                    <td>mcutest gfanspd</td>
+                    <td>i2cset -y 0 0x52 0xa 0xc && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest gfanpwm</td>
+                    <td>i2cset -y 0 0x52 0xa 0xa && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest gadc</td>
+                    <td>i2cset -y 0 0x52 0xa 0x6 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x7 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xd && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xe && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest sfanwd 0</td>
+                    <td>i2cset -y 0 0x52 0x6 0x0 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest sfanwd 1</td>
+                    <td>i2cset -y 0 0x52 0x6 0x1 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest sfanwdspd 5000</td>
+                    <td>i2cset -y 0 0x52 0x7 0x52 && i2cset -y 0 0x52 0xa 0x5 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest memdump</td>
+                    <td>i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x1 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x2 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x3 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x4 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x5 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x6 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x7 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x8 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0x9 && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xa && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xb && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xc && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xd && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xe && i2cget -y 0 0x52 0x0 && i2cset -y 0 0x52 0xa 0xf && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcutest gold</td>
+                    <td>i2cset -y 0 0x52 0xac</td>
+                </tr>
+                <tr>
+                    <td>get_device_id</td>
+                    <td>i2cset -y 0 0x52 0xa 0x2 && i2cget -y 0 0x52 0x0</td>
+                </tr>
+                <tr>
+                    <td>mcupg rcfg</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>mcupg wcfgl</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>mcupg rfw</td>
+                    <td>0x1</td>
+                </tr>
+                <tr>
+                    <td>mcupg rfwd</td>
+                    <td>/lib/firmware/nvtn_mcu/MCU_APROM.txt</td>
+                </tr>
+                <tr>
+                    <td>mcupg rdevid</td>
+                    <td>0x6</td>
+                </tr>
+                <tr>
+                    <td>mcupg goap</td>
+                    <td>0x21</td>
+                </tr>
+                <tr>
+                    <td>mcupg upgrade auto</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>mcupg upgrade aprom</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td>mcupg rst</td>
+                    <td>echo 9 > /sys/class/gpio/export;echo out > /sys/class/gpio/gpio9/direction;echo 0 > /sys/class/gpio/gpio9/value;sleep 1; echo 1 > /sys/class/gpio/gpio9/value</td>
+                </tr>
+            </table>
+            <h3><font color="yellow"><a id="gd32e230f8v6_stop_fan_control">Stop auto fan control</a></font></h3>
+            killall fan_control.sh && mcutest sfanwd 0
+        <hr><h2><a id="mfc">MFC station</a></h2><hr>
+        unzip: Mfc321Read<br><br>
+        <code>
+RPI username: mfc
+RPI password: Mfc321Development
+        </code>
+        <code>
+Pod PCLI username: mfc
+Pod PCLI password: mfc12345
+        </code>
+        <code>
+Pod ASH username: plume
+Pod ASH password: Plume1234Development
+        </code>
+        nc -z localhost 33202; echo $?<br><br>
+        nc -z localhost 33203; echo $?<br><br>
+        ping -i 1 -c 3 192.168.100.1<br><br>
+        ping -i 1 -c 3 192.168.100.2<br><br>
+        ping -i 1 -c 3 192.168.100.3<br><br>
+        <a href="http://192.168.100.1:8000/conf">http://192.168.100.1:8000/conf</a><br><br>
+        <a href="http://192.168.100.1:8000/always_upgrade">http://192.168.100.1:8000/always_upgrade</a><br><br>
+        <a href="http://192.168.100.1:8000/upload">http://192.168.100.1:8000/upload</a><br><br>
+        <a href="http://192.168.100.1:9000/fqc_status">http://192.168.100.1:9000/fqc_status</a><br><br>
+        <a href="http://192.168.100.1:9000/reflash_status">http://192.168.100.1:9000/reflash_status</a><br><br>
+        <a href="http://192.168.100.1:9000/status">http://192.168.100.1:9000/status</a><br><br>
+        <a href="http://192.168.100.1:9000/service_key">http://192.168.100.1:9000/service_key</a><br><br>
+        <a href="http://192.168.100.1:9000/fan_pwm_test_conf">http://192.168.100.1:9000/fan_pwm_test_conf</a><br><br>
+        <a href="http://192.168.100.1:8000/cgi-bin/parse_dhcp.py">http://192.168.100.1:8000/cgi-bin/parse_dhcp.py</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/testStatus">http://192.168.100.1:8005/v1/testStatus</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/golden_unit_conf">http://192.168.100.1:8005/v1/golden_unit_conf</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/fan_test_conf">http://192.168.100.1:8005/v1/fan_test_conf</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/file_key">http://192.168.100.1:8005/v1/file_key</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/fs_file_key">http://192.168.100.1:8005/v1/fs_file_key</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/health">http://192.168.100.1:8005/v1/health</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/csv_exists">http://192.168.100.1:8005/v1/csv_exists</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/is_conf_supported">http://192.168.100.1:8005/v1/is_conf_supported</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/firmwareVersion">http://192.168.100.1:8005/v1/firmwareVersion</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/persistent_settings">http://192.168.100.1:8005/v1/persistent_settings</a><br><br>
+        <a href="http://192.168.100.1:8005/v1/always_upgrade">http://192.168.100.1:8005/v1/always_upgrade</a><br><br>
+        curl -s --max-time 5 192.168.100.1:9000/fqc_status<br><br>
+        curl -s --max-time 5 192.168.100.1:9000/reflash_status<br><br>
+        curl -s --max-time 5 192.168.100.1:9000/status<br><br>
+        curl -s --max-time 5 192.168.100.1:9000/service_key<br><br>
+        curl -s --max-time 5 192.168.100.1:9000/fan_pwm_test_conf<br><br>
+        curl -s --max-time 5 192.168.100.1:8000/cgi-bin/parse_dhcp.py<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/testStatus<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/golden_unit_conf<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/fan_test_conf<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/file_key<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/fs_file_key<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/health<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/csv_exists<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/is_conf_supported<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/firmware_version<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/persistent_settings<br><br>
+        curl -s --max-time 5 192.168.100.1:8005/v1/always_upgrade<br><br>
+        snmpwalk -Oq -c public -v 2c 192.168.100.2 1.3.6.1.2.1.1.1.0<br><br>
+        snmpwalk -c public -v 1 192.168.100.2 .1.3.6.1.2.1.2.2.1.7<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.2 .1.3.6.1.2.1.17.4.3.1.2<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.2 .1.3.6.1.2.1.17.7.1.2.2.1.2.4<br><br>
+        snmpwalk -Oq -c public -v 1 192.168.100.2 .1.3.6.1.2.1.31.1.1.1.1<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.2 .1.3.6.1.2.1.17.1.4.1.2<br><br>
+        snmpwalk -Oq -c public -v 2c 192.168.100.3 1.3.6.1.2.1.1.1.0<br><br>
+        snmpwalk -c public -v 1 192.168.100.3 .1.3.6.1.2.1.2.2.1.7<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.3 .1.3.6.1.2.1.17.4.3.1.2<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.3 .1.3.6.1.2.1.17.7.1.2.2.1.2.4<br><br>
+        snmpwalk -Oq -c public -v 1 192.168.100.3 .1.3.6.1.2.1.31.1.1.1.1<br><br>
+        snmpwalk -On -c public -v 1 192.168.100.3 .1.3.6.1.2.1.17.1.4.1.2<br><br>
+        snmpget -c private -v 1 192.168.100.3 .1.3.6.1.2.1.2.2.1.7.2<br><br>
+        snmpset -c private -v 1 192.168.100.3 .1.3.6.1.2.1.2.2.1.7.2 i 1<br><br>
+        snmpset -c private -v 1 192.168.100.3 .1.3.6.1.2.1.2.2.1.7.2 i 2<br><br>
+        openssl enc -aes-256-cbc -md sha256 -pbkdf2 -iter 5000 -base64 -nosalt -pass pass:&quot;df16db72-3e84-4043-b8f0-2d8573a6205c_&lt;model_name&gt;_&lt;fw_version&gt;&quot; -P | grep key | cut -d "=" -f 2 | xxd -r -p | base64<br><br>
+        sudo ifconfig eth0 promisc;sudo pkill tcpdump;cd /;nohup sudo tcpdump -n -vvv -XX -i eth0 "(udp port 67 or port 68) and (net 192.168.100.0/24 or net 192.168.4.0/24)" -w captured_packets.pcap &<br><br>
+        sudo ifconfig eth0 promisc;sudo pkill tcpdump;cd /;nohup sudo tcpdump -n -vvv -XX -i eth0 -w captured_packets.pcap &<br><br>
+        sudo rm -f /tmp/btest*<br><br>
+        <code>
+# enable RPI uart
+sudo vim /media/victor/boot/config.txt
+
+enable_uart=1
+dtoverlay=miniuart-bt
+        </code>
+        <code>
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m fqc
+./make-image fqc 'LG302Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m reflash
+./make-image reflash 'LG302Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m refurbish
+./make-image refurbish 'LG302Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m repair
+./make-image repair 'LG302Z' Plume dev
+
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m fqc
+./make-image fqc 'LG312Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m reflash
+./make-image reflash 'LG312Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m refurbish
+./make-image refurbish 'LG312Z' Plume dev
+./prepare_mfc.py -p cyrus -v 3.4.1-106-prod-cuillin -m repair
+./make-image repair 'LG312Z' Plume dev
+
+./prepare_mfc.py -p augustus -v 4.2.0-95-prod -m fqc
+./make-image fqc 'PP403Z' Plume dev
+./prepare_mfc.py -p augustus -v 4.2.0-95-prod -m reflash
+./make-image reflash 'PP403Z' Plume dev
+./prepare_mfc.py -p augustus -v 4.2.0-95-prod -m refurbish
+./make-image refurbish 'PP403Z' Plume dev
+./prepare_mfc.py -p augustus -v 4.2.0-95-prod -m repair
+./make-image repair 'PP403Z' Plume dev
+
+./prepare_mfc.py -p octavian -v 4.2.0-117-prod -m fqc
+./make-image fqc 'PP443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-117-prod -m reflash
+./make-image reflash 'PP443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-117-prod -m refurbish
+./make-image refurbish 'PP443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-117-prod -m repair
+./make-image repair 'PP443Z' Plume dev
+
+./prepare_mfc.py -p octavian -v 4.2.0-125-prod-cuillin-lgi -m fqc
+./make-image fqc 'LG443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-125-prod-cuillin-lgi -m reflash
+./make-image reflash 'LG443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-125-prod-cuillin-lgi -m refurbish
+./make-image refurbish 'LG443Z' Plume dev
+./prepare_mfc.py -p octavian -v 4.2.0-125-prod-cuillin-lgi -m repair
+./make-image repair 'LG443Z' Plume dev
+
+./prepare_mfc.py -p kreka -v 5.1.0-207-dev-debug -m fqc
+./make-image fqc 'PP603M' Plume dev
+./prepare_mfc.py -p kreka -v 5.1.0-207-dev-debug -m reflash
+./make-image reflash 'PP603M' Plume dev
+./prepare_mfc.py -p kreka -v 5.1.0-207-dev-debug -m refurbish
+./make-image refurbish 'PP603M' Plume dev
+./prepare_mfc.py -p kreka -v 5.1.0-207-dev-debug -m repair
+./make-image repair 'PP603M' Plume dev
+
+./prepare_mfc.py -p attila -v 4.2.0-129-prod -m fqc
+./make-image fqc 'PP603X' Plume dev
+./prepare_mfc.py -p attila -v 4.2.0-129-prod -m reflash
+./make-image reflash 'PP603X' Plume dev
+./prepare_mfc.py -p attila -v 4.2.0-129-prod -m refurbish
+./make-image refurbish 'PP603X' Plume dev
+./prepare_mfc.py -p attila -v 4.2.0-129-prod -m repair
+./make-image repair 'PP603X' Plume dev
+        </code>
+        awk '{print $2}' /etc/ssh/ssh_host_rsa_key_Plume_PP443Z.pub | openssl base64 -d -A | openssl sha1<br><br>
+        ssh-keygen -t rsa -b 4096 -P "w11T3Riw8qErRkcDBkblR3s+5kYtUZztNnyfEN7+wXo=" -C "Plume_PP443Z"<br><br>
+        openssl enc -aes-256-cbc -md sha256 -pbkdf2 -iter 5000 -base64 -nosalt -pass pass:"df16db72-3e84-4043-b8f0-2d8573a6205c_PP443Z_4.2.0-117-g46a431-prod" -P | grep key | cut -d "=" -f 2 | xxd -r -p | base64<br><br>
+        # enable Wi-Fi station<br>
+        sudo vim /var/run/wlan0.conf<br>
+        <code>
+ctrl_interface=/var/run/
+country=US
+network={
+    ssid="24_AP_5876ac9dce34"
+     psk="testHome1234"
+}
+        </code>
+        sudo wpa_supplicant -B -P /var/run/wlan0.pid -i wlan0 -c /var/run/wlan0.conf<br><br>
+        sudo tcpdump -n -vvv -XX -i eth0 "udp port 67"<br><br>
+        curl -d -X GET http://192.168.100.1:9000/always_upgrade<br><br>
+        # get new password of ssh keys<br>
+        echo -n '10000000e1b6a3e0PLUMEe4:5f:01:3b:5c:61' | sha256sum | cut -d ' ' -f 1<br>
+        ssh-keygen -p -P "w11T3Riw8qErRkcDBkblR3s+5kYtUZztNnyfEN7+wXo=" -N "6152a9c359da72e85c112d706b24d041193e6a2ea035ed1e19e0875f269414ec" -f /etc/ssh/ssh_host_rsa_key<br><br>
+        # get ifport<br>
+        snmpwalk -Oq -c public -v 1 192.168.100.2 iso.3.6.1.2.1.31.1.1.1.1<br><br>
+        # get mac ports<br>
+        snmpwalk -On -c public -v 1 192.168.100.2 .1.3.6.1.2.1.17.4.3.1.2<br><br>
+    <hr><h2><a id="bcm">Broadcom</a></h2><hr>
+    <h3><font color="yellow"><a id="bcm_common">Common</a></font></h3>
+    # enable OpenSync manager<br>
+    /usr/opensync/bin/start.sh && /usr/opensync/bin/psm --restore && start-stop-daemon -S -p /var/run/dm.pid -x /usr/opensync/bin/dm -b -m<br><br>
+    # disable OpenSync manager<br>
+    while true; do /usr/opensync/bin/wpd -p; sleep 10; done&<br>
+    /usr/opensync/bin/stop.sh<br><br>
+    # get device model name<br>
+    ovsh -r s AWLAN_Node model<br><br>
+    # get deivce serial number<br>
+    ovsh -r s AWLAN_Node serial_number<br><br>
+    # show network config<br>
+    ovsh s Wifi_Inet_Config -c<br><br>
+    # open debug message<br>
+    ovsh i AW_Debug name:=CM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=NM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=OWM log_severity:=TRACE<br><br>
+    # Get local log for OpenSync<br>
+    /usr/opensync/scripts/logpull/logpull.sh --local<br><br>
+    # list added ssh keys<br>
+    sudo SSH_AUTH_SOCK=/tmp/ssh-agent.socket ssh-add -l<br><br>
+    # switch boot partition<br>
+    bcm_bootstate 2<br>
+    bootconfig --write reset --loc alt<br><br>
+    <hr><h2><a id="qca">Qualcomm</a></h2><hr>
+    <h3><font color="yellow"><a id="qca_common">Common</a></font></h3>
+    # enable OpenSync manager<br>
+    /usr/opensync/bin/start.sh && /usr/opensync/bin/psm --restore && start-stop-daemon -S -p /var/run/dm.pid -x /usr/opensync/bin/dm -b -m<br><br>
+    # disable OpenSync manager<br>
+    while true; do /usr/opensync/bin/wpd -p; sleep 10; done&<br>
+    /usr/opensync/bin/stop.sh<br><br>
+    # get device model name<br>
+    ovsh -r s AWLAN_Node model<br><br>
+    # get deivce serial number<br>
+    ovsh -r s AWLAN_Node serial_number<br><br>
+    # show network config<br>
+    ovsh s Wifi_Inet_Config -c<br><br>
+    # open debug message<br>
+    ovsh i AW_Debug name:=CM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=NM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=OWM log_severity:=TRACE<br><br>
+    # Get local log for OpenSync<br>
+    /usr/opensync/scripts/logpull/logpull.sh --local<br><br>
+    # list added ssh keys<br>
+    sudo SSH_AUTH_SOCK=/tmp/ssh-agent.socket ssh-add -l<br><br>
+    # dump pinmux<br>
+    cat /sys/kernel/debug/pinctrl/1000000.pinctrl/pinmux-pins<br><br>
+    # dump function and group<br>
+    cat /sys/kernel/debug/pinctrl/1000000.pinctrl/pinmux-functions<br><br>
+    # rebuild u-boot<br>
+    make package/feeds/bootloader/uboot-qca/{clean,compile,install} -j4 V=s<br><br>
+    # rebuild kernel<br>
+    make target/linux/{clean,compile,install} -j4 V=s<br><br>
+    # compress repo<br>
+    find &ltqcom_sdk&gt -newer a ! -name "." -a ! -path "&ltqcom_sdk&gt/.repo/*" ! -type d > file_list<br><br>
+    <h3><font color="yellow"><a id="qca_attila">Attila PP603X</a></font></h3>
+    cat /sys/class/net/wifi0/thermal/temp<br><br>
+    cat /sys/class/net/wifi1/thermal/temp<br><br>
+    cat /sys/class/net/wifi2/thermal/temp<br><br>
+    echo 100 > /sys/class/hwmon/hwmon0/pwm<br><br>
+    # Set Wi-Fi AP in production mode<br>
+    /usr/opensync/bin/gwsetup.sh 0_AP_2.4G 1_AP_5G 2_AP_6G testHome1234<br><br>
+    # Set Wi-Fi STA in production mode<br>
+    /usr/opensync/bin/fqc-ping.sh 1_AP_ 2.4G 00037F12EDED testHome1234 1 60 9 50<br><br>
+    /usr/opensync/bin/fqc-ping.sh 0_AP_ 5G 00037F12EDEE testHome1234 0 60 7 50<br><br>
+    /usr/opensync/bin/fqc-ping.sh 2_AP_ 6G 00037F12EDEF testHome1234 2 60 7 50<br><br>
+    <h3><font color="yellow"><a id="qca_barca">Barca PP703X</a></font></h3>
+    cat /sys/class/hwmon/hwmon0/current_rpm<br><br>
+    echo 100 > /sys/class/hwmon/hwmon0/pwm<br><br>
+    thermaltool -i wifi0 -get | grep temp | awk -F'[ ,]' '{print($5)}'<br><br>
+    thermaltool -i wifi1 -get | grep temp | awk -F'[ ,]' '{print($5)}'<br><br>
+    thermaltool -i wifi2 -get | grep temp | awk -F'[ ,]' '{print($5)}'<br><br>
+    # Set Wi-Fi AP in production mode<br>
+    /usr/opensync/bin/gwsetup.sh 0_AP_2.4G 1_AP_5G 2_AP_6G testHome1234<br><br>
+    # Set Wi-Fi STA in production mode<br>
+    /usr/opensync/bin/fqc-ping.sh 0_AP_ 2.4G 00037F12EDED testHome1234 0 60 9 50<br><br>
+    /usr/opensync/bin/fqc-ping.sh 1_AP_ 5G 00037F12EDEE testHome1234 1 60 7 50<br><br>
+    /usr/opensync/bin/fqc-ping.sh 2_AP_ 6G 00037F12EDEF testHome1234 2 60 7 50<br><br>
+    # Monitor Wi-Fi 2.4G AP packets<br>
+    <code>
+ifconfig h-24 promisc
+killall tcpdump
+mv /captured_packets_golden.pcap /captured_packets_golden.pcap.bak
+tcpdump -n -vvv -XX -i h-24 -w /captured_packets_golden.pcap &
+    </code>
+    # Monitor Wi-Fi 2.4G STA packets<br>
+    <code>
+ifconfig bhaul-sta-24 promisc
+killall tcpdump
+mv /captured_packets_dut.pcap /captured_packets_dut.pcap.bak
+tcpdump -n -vvv -XX -i bhaul-sta-24 -w /captured_packets_dut.pcap &
+    </code>
+    # Monitor Wi-Fi 5G AP packets<br>
+    <code>
+ifconfig h-50 promisc
+killall tcpdump
+mv /captured_packets_golden.pcap /captured_packets_golden.pcap.bak
+tcpdump -n -vvv -XX -i h-50 -w /captured_packets_golden.pcap &
+    </code>
+    # Monitor Wi-Fi 5G STA packets<br>
+    <code>
+ifconfig bhaul-sta-50 promisc
+killall tcpdump
+mv /captured_packets_dut.pcap /captured_packets_dut.pcap.bak
+tcpdump -n -vvv -XX -i bhaul-sta-50 -w /captured_packets_dut.pcap &
+    </code>
+    # Monitor Wi-Fi 6G AP packets<br>
+    <code>
+ifconfig h-60 promisc
+killall tcpdump
+mv /captured_packets_golden.pcap /captured_packets_golden.pcap.bak
+tcpdump -n -vvv -XX -i h-60 -w /captured_packets_golden.pcap &
+    </code>
+    # Monitor Wi-Fi 6G STA packets<br>
+    <code>
+ifconfig bhaul-sta-60 promisc
+killall tcpdump
+mv /captured_packets_dut.pcap /captured_packets_dut.pcap.bak
+tcpdump -n -vvv -XX -i bhaul-sta-60 -w /captured_packets_dut.pcap &
+    </code>
+    <hr><h2><a id="mtk">MTK</a></h2><hr>
+    <h3><font color="yellow"><a id="mtk_common">Common</a></font></h3>
+    # enable OpenSync manager<br>
+    /usr/opensync/bin/start.sh && /usr/opensync/bin/psm --restore && start-stop-daemon -S -p /var/run/dm.pid -x /usr/opensync/bin/dm -b -m<br><br>
+    # disable OpenSync manager<br>
+    while true; do /usr/opensync/bin/wpd -p; sleep 10; done&<br>
+    /usr/opensync/bin/stop.sh<br><br>
+    # get device model name<br>
+    ovsh -r s AWLAN_Node model<br><br>
+    # get deivce serial number<br>
+    ovsh -r s AWLAN_Node serial_number<br><br>
+    # show network config<br>
+    ovsh s Wifi_Inet_Config -c<br><br>
+    # open debug message<br>
+    ovsh i AW_Debug name:=CM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=NM log_severity:=TRACE<br>
+    ovsh i AW_Debug name:=OWM log_severity:=TRACE<br><br>
+    # Get local log for OpenSync<br>
+    /usr/opensync/scripts/logpull/logpull.sh --local<br><br>
+    # list added ssh keys<br>
+    sudo SSH_AUTH_SOCK=/tmp/ssh-agent.socket ssh-add -l<br><br>
+    <h3><font color="yellow"><a id="mtk_kreka">Kreka PP603M</a></font></h3>
+    killall tcpdump;cd /;mv captured_packets_dut.pcap captured_packets_dut.pcap.bak;nohup tcpdump -n -vvv -XX -i eth0 -w captured_packets_dut.pcap &<br><br>
+    hexdump -x -n 1 -s 0xa0194 /dev/mtd3 | awk 'NR == 1 {print $2}'<br><br>
+    <code>
+fw_setenv plume_apps 0
+fw_setenv plume_apps 1
+    </code>
+    <code>
+<b>Aging test</b><br>
+<u>PC</u><br>
+scp /tftpboot/mtk/kreka/mfg.sh plume@192.168.1.1:/sbin/mfg.sh
+<br><u>DUT</u><br>
+chmod 755 /sbin/mfg.sh
+pmf -ag -fw 1
+reboot
+pmf -ag -r
+    </code>
+    <code>
+<b>Reboot stress test</b><br>
+<u>PC</u><br>
+scp /tftpboot/mtk/kreka/mfg_reboot.sh plume@192.168.1.1:/sbin/mfg.sh
+<br><u>DUT</u><br>
+chmod 755 /sbin/mfg.sh
+echo 10 > /mnt/data/reboot_stress_end
+echo 0 > /mnt/data/reboot_stress
+reboot
+cat /mnt/data/reboot_stress
+    </code>
+<br><br><br><br><br><br><br><br><br><br>
+</font></body>
+</html>
