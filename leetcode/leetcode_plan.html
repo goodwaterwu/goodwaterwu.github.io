@@ -1,103 +1,947 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <title>LeetCode兩個月備考攻略 - Firmware工程師 (中英文雙連結版)</title>
-    <style>
-        body { font-family: 'Arial', 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #2980b9; border-left: 5px solid #3498db; padding-left: 10px; margin-top: 30px; }
-        h3 { color: #16a085; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        a { color: #3498db; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .company-tag { display: inline-block; background: #e74c3c; color: white; border-radius: 3px; padding: 2px 5px; font-size: 0.8em; margin-right: 3px; }
-        .topic-tag { display: inline-block; background: #9b59b6; color: white; border-radius: 3px; padding: 2px 5px; font-size: 0.8em; margin-right: 3px; }
-        .page-break { page-break-after: always; }
-        @media print {
-            body { padding: 0; }
-            a { color: #000; }
-            a::after { content: " (" attr(href) ") "; font-size: 0.9em; color: #666; }
-        }
-    </style>
-</head>
-<body>
-
-    <h1>LeetCode Top 150 兩個月備考攻略</h1>
-    <h2 style="text-align: center;">Firmware工程師聚焦版 (Google/Amazon/Meta) - 中英文雙連結</h2>
-
-    <h2>📋 計劃總覽</h2>
-    <p><strong>目標：</strong> 在兩個月內系統性地完成LeetCode最核心的150題中的基礎和中等難度題目。</p>
-    <p><strong>側重點：</strong> <strong>陣列(Array)</strong>、<strong>字串(String)</strong>、<strong>鏈表(Linked List)</strong>、<strong>樹(Tree)</strong>、<strong>排序(Sorting)</strong> 和 <strong>二分搜尋(Binary Search)</strong>。這些是韌體(Firmware)面試中最常出現的題型。</p>
-    <p><strong>公司偏好：</strong> 優先選擇在Google、Amazon (AWS)、Meta (Facebook)的面試中出現頻率较高的題目。<span class="company-tag">G</span> Google <span class="company-tag">A</span> Amazon <span class="company-tag">M</span> Meta</p>
-    <p><strong>題型標記：</strong> <span class="topic-tag">Array</span> <span class="topic-tag">String</span> <span class="topic-tag">LL</span> <span class="topic-tag">Tree</span> <span class="topic-tag">Sort</span> <span class="topic-tag">BS</span> <span class="topic-tag">2P</span> <span class="topic-tag">Stack</span> <span class="topic-tag">DP</span> <span class="topic-tag">HT</span></p>
-    <p><strong>難度控制：</strong> 排除“Hard”難度的題目，專注於建立堅實的基礎。</p>
-    <p><strong>節奏：</strong> 每週工作5天，每天3-4題，週末休息和消化吸收。</p>
-
-    <div class="page-break"></div>
-
-    <h2>📅 第一週：陣列與字串 (Array & String)</h2>
-    <p><strong>目標：</strong>掌握基本的資料操作和迭代技巧。</p>
-    <table>
-        <tr><th>日期</th><th>題目名稱 (類型)</th><th>LeetCode 連結</th><th>力扣 連結</th><th>難度</th><th>備註 (高頻公司)</th></tr>
-        <tr><td><strong>週一</strong></td><td>1. 移除元素 (Remove Element) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/remove-element/">英文連結</a></td><td><a href="https://leetcode.cn/problems/remove-element/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span></td></tr>
-        <tr><td></td><td>2. 合併兩個有序陣列 (Merge Sorted Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/merge-sorted-array/">英文連結</a></td><td><a href="https://leetcode.cn/problems/merge-sorted-array/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>3. 反轉字串 (Reverse String) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/reverse-string/">英文連結</a></td><td><a href="https://leetcode.cn/problems/reverse-string/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td><strong>週二</strong></td><td>4. 兩數之和 (Two Sum) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td><td><a href="https://leetcode.com/problems/two-sum/">英文連結</a></td><td><a href="https://leetcode.cn/problems/two-sum/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>5. 最大子陣列和 (Maximum Subarray) <span class="topic-tag">Array</span> <span class="topic-tag">DP</span></td><td><a href="https://leetcode.com/problems/maximum-subarray/">英文連結</a></td><td><a href="https://leetcode.cn/problems/maximum-subarray/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>6. 最長公共前綴 (Longest Common Prefix) <span class="topic-tag">String</span></td><td><a href="https://leetcode.com/problems/longest-common-prefix/">英文連結</a></td><td><a href="https://leetcode.cn/problems/longest-common-prefix/">中文連結</a></td><td>Easy</td><td></td></tr>
-        <tr><td><strong>週三</strong></td><td>7. 驗證回文串 (Valid Palindrome) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/valid-palindrome/">英文連結</a></td><td><a href="https://leetcode.cn/problems/valid-palindrome/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td></td><td>8. 字串中的第一個唯一字元 (First Unique Character) <span class="topic-tag">String</span> <span class="topic-tag">HT</span></td><td><a href="https://leetcode.com/problems/first-unique-character-in-a-string/">英文連結</a></td><td><a href="https://leetcode.cn/problems/first-unique-character-in-a-string/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>9. 有效的括號 (Valid Parentheses) <span class="topic-tag">String</span> <span class="topic-tag">Stack</span></td><td><a href="https://leetcode.com/problems/valid-parentheses/">英文連結</a></td><td><a href="https://leetcode.cn/problems/valid-parentheses/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td><strong>週四</strong></td><td>10. 移動零 (Move Zeroes) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/move-zeroes/">英文連結</a></td><td><a href="https://leetcode.cn/problems/move-zeroes/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span></td></tr>
-        <tr><td></td><td>11. 買賣股票的最佳時機 (Best Time to Buy Stock) <span class="topic-tag">Array</span> <span class="topic-tag">DP</span></td><td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">英文連結</a></td><td><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>12. 多數元素 (Majority Element) <span class="topic-tag">Array</span></td><td><a href="https://leetcode.com/problems/majority-element/">英文連結</a></td><td><a href="https://leetcode.cn/problems/majority-element/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td><strong>週五</strong></td><td>13. 旋轉陣列 (Rotate Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/rotate-array/">英文連結</a></td><td><a href="https://leetcode.cn/problems/rotate-array/">中文連結</a></td><td>Medium</td><td><span class="company-tag">G</span></td></tr>
-        <tr><td></td><td>14. 存在重複元素 (Contains Duplicate) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td><td><a href="https://leetcode.com/problems/contains-duplicate/">英文連結</a></td><td><a href="https://leetcode.cn/problems/contains-duplicate/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td></td><td>15. 缺失數字 (Missing Number) <span class="topic-tag">Array</span> <span class="topic-tag">BS</span></td><td><a href="https://leetcode.com/problems/missing-number/">英文連結</a></td><td><a href="https://leetcode.cn/problems/missing-number/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span></td></tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h2>📅 第二週：鏈表與雙指針 (Linked List & Two Pointers)</h2>
-    <p><strong>目標：</strong>理解指針操作和常見的鏈表模式。</p>
-    <table>
-        <tr><th>日期</th><th>題目名稱 (類型)</th><th>LeetCode 連結</th><th>力扣 連結</th><th>難度</th><th>備註 (高頻公司)</th></tr>
-        <tr><td><strong>週一</strong></td><td>16. 反轉鏈表 (Reverse Linked List) <span class="topic-tag">LL</span></td><td><a href="https://leetcode.com/problems/reverse-linked-list/">英文連結</a></td><td><a href="https://leetcode.cn/problems/reverse-linked-list/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>17. 鏈表中環的檢測 (Linked List Cycle) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/linked-list-cycle/">英文連結</a></td><td><a href="https://leetcode.cn/problems/linked-list-cycle/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>18. 合併兩個有序鏈表 (Merge Two Sorted Lists) <span class="topic-tag">LL</span></td><td><a href="https://leetcode.com/problems/merge-two-sorted-lists/">英文連結</a></td><td><a href="https://leetcode.cn/problems/merge-two-sorted-lists/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td><strong>週二</strong></td><td>19. 刪除鏈表的倒數第N個節點 (Remove Nth Node From End) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">英文連結</a></td><td><a href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">中文連結</a></td><td>Medium</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>20. 相交鏈表 (Intersection of Two Linked Lists) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/">英文連結</a></td><td><a href="https://leetcode.cn/problems/intersection-of-two-linked-lists/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td></td><td>21. 迴文鏈表 (Palindrome Linked List) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/palindrome-linked-list/">英文連結</a></td><td><a href="https://leetcode.cn/problems/palindrome-linked-list/">中文連結</a></td><td>Easy</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td><strong>週三</strong></td><td>22. 盛最多水的容器 (Container With Most Water) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/container-with-most-water/">英文連結</a></td><td><a href="https://leetcode.cn/problems/container-with-most-water/">中文連結</a></td><td>Medium</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>23. 三數之和 (3Sum) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span> <span class="topic-tag">Sort</span></td><td><a href="https://leetcode.com/problems/3sum/">英文連結</a></td><td><a href="https://leetcode.cn/problems/3sum/">中文連結</a></td><td>Medium</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td></td><td>24. 最接近的三數之和 (3Sum Closest) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span> <span class="topic-tag">Sort</span></td><td><a href="https://leetcode.com/problems/3sum-closest/">英文連結</a></td><td><a href="https://leetcode.cn/problems/3sum-closest/">中文連結</a></td><td>Medium</td><td><span class="company-tag">A</span></td></tr>
-        <tr><td><strong>週四</strong></td><td>25. 移除重複元素 (Remove Duplicates from Sorted Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/">英文連結</a></td><td><a href="https://leetcode.cn/problems/remove-duplicates-from-sorted-array/">中文連結</a></td><td>Easy</td><td><span class="company-tag">G</span> <span class="company-tag">A</span></td></tr>
-        <tr><td></td><td>26. 反轉字串中的母音字母 (Reverse Vowels of a String) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td><td><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/">英文連結</a></td><td><a href="https://leetcode.cn/problems/reverse-vowels-of-a-string/">中文連結</a></td><td>Easy</td><td></td></tr>
-        <tr><td></td><td>27. 陣列中第K個最大元素 (Kth Largest Element in an Array) <span class="topic-tag">Array</span> <span class="topic-tag">Sort</span> <span class="topic-tag">Heap</span></td><td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">英文連結</a></td><td><a href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">中文連結</a></td><td>Medium</td><td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td></tr>
-        <tr><td><strong>週五</strong></td><td>28. 排序鏈表 (Sort List) <span class="topic-tag">LL</span> <span class="topic-tag">Sort</span></td><td><a href="https://leetcode.com/problems/sort-list/">英文連結</a></td><td><a href="https://leetcode.cn/problems/sort-list/">中文連結</a></td><td>Medium</td><td>(複習鏈表排序)</td></tr>
-        <tr><td></td><td>29. 雙指針技巧複習</td><td>-</td><td>-</td><td>-</td><td>重做本週錯題</td></tr>
-    </table>
-
-    <p>... (此處省略第三到第八週的表格內容，實際檔案中包含全部8週的完整計劃，每一題都配有中英文雙連結) ...</p>
-
-    <div class="page-break"></div>
-
-    <h2>🎯 使用指南與備考建議</h2>
-    <ol>
-        <li><strong>每日節奏：</strong>每天花費1.5 - 2.5小時專注解題和複習。理解思路比單純AC更重要。</li>
-        <li><strong>題目連結與類型標記：</strong>所有題目均提供了英文LeetCode和中文力扣的雙連結，可按偏好選擇。題目後的標籤（如 <span class="topic-tag">Array</span> <span class="topic-tag">DP</span>）標明了其主要考察的數據結構或算法類型。</li>
-        <li><strong>公司標註：</strong><span class="company-tag">G</span> (Google), <span class="company-tag">A</span> (Amazon), <span class="company-tag">M</span> (Meta)。標註的題目請務必熟練掌握。</li>
-        <li><strong>週末休息：</strong>週六日徹底放鬆，這有助於大腦整合知識，避免倦怠。</li>
-        <li><strong>錯題本：</strong>準備一個錯題本（或文件），記錄思路卡殼的題目，定期回顧。</li>
-        <li><strong>第八週：</strong>最後一週的模擬面試至關重要，請嚴格計時，訓練速度和心態。</li>
-        <li><strong>韌體工程師補充：</strong>雖然以算法為主，但別忘了複習<strong>C/C++</strong>語言特性、<strong>作業系統</strong>（進程/線程、記憶體管理）和<strong>計算機組成</strong>（位操作、緩存）等基礎知識。</li>
-    </ol>
-    <br>
-    <h2 style="text-align: center;">祝您準備順利，在面試中脫穎而出，拿到理想的Offer！</h2>
-
-</body>
-</html>
+   <head>
+      <meta charset="UTF-8">
+      <title>LeetCode兩個月備考攻略 - Firmware工程師</title>
+      <style> body { font-family: 'Arial', 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; } h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; } h2 { color: #2980b9; border-left: 5px solid #3498db; padding-left: 10px; margin-top: 30px; } h3 { color: #16a085; } table { width: 100%; border-collapse: collapse; margin: 20px 0; } th, td { border: 1px solid #ddd; padding: 10px; text-align: left; } th { background-color: #f2f2f2; } tr:nth-child(even) { background-color: #f9f9f9; } a { color: #3498db; text-decoration: none; } a:hover { text-decoration: underline; } .company-tag { display: inline-block; background: #e74c3c; color: white; border-radius: 3px; padding: 2px 5px; font-size: 0.8em; margin-right: 3px; } .topic-tag { display: inline-block; background: #9b59b6; color: white; border-radius: 3px; padding: 2px 5px; font-size: 0.8em; margin-right: 3px; } .difficulty-easy { color: green; } .difficulty-medium { color: orange; } .page-break { page-break-after: always; } @media print { body { padding: 0; } a { color: #000; } a::after { content: " (" attr(href) ") "; font-size: 0.9em; color: #666; } } </style>
+   </head>
+   <body>
+      <h1>LeetCode Top 150 兩個月備考攻略</h1>
+      <h2 style="text-align: center;">Firmware工程師聚焦版 (Google/Amazon/Meta)</h2>
+      <h2>📋 計劃總覽</h2>
+      <p><strong>目標：</strong> 在兩個月內系統性地完成LeetCode最核心的150題中的基礎和中等難度題目。</p>
+      <p><strong>側重點：：</strong> <strong>陣列(Array)</strong>、<strong>字串(String)</strong>、<strong>鏈表(Linked List)</strong>、<strong>樹(Tree)</strong>、<strong>排序(Sorting)</strong> 和 <strong>二分搜尋(Binary Search)</strong>。這些是韌體(Firmware)面試中最常出現的題型。</p>
+      <p><strong>公司偏好：：</strong> 優先選擇在Google、Amazon (AWS)、Meta (Facebook)的面試中出現頻率较高的題目。<span class="company-tag">G</span> Google <span class="company-tag">A</span> Amazon <span class="company-tag">M</span> Meta</p>
+      <p><strong>題型標記：：</strong> <span class="topic-tag">Array</span> <span class="topic-tag">String</span> <span class="topic-tag">LL</span> <span class="topic-tag">Tree</span> <span class="topic-tag">Sort</span> <span class="topic-tag">BS</span> <span class="topic-tag">2P</span> <span class="topic-tag">Stack</span> <span class="topic-tag">DP</span> <span class="topic-tag">HT</span></p>
+      <p><strong>難度控制：：</strong> 排除“Hard”難度的題目，專注於建立堅實的基礎。</p>
+      <p><strong>節奏：：</strong> 每週工作5天，每天3-4題，週末休息和消化吸收。</p>
+      <div class="page-break"></div>
+      <h2>📅 第一週：陣列與字串 (Array & String)</h2>
+      <p><strong>目標：：</strong>掌握基本的資料操作和迭代技巧。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>1. 移除元素 (Remove Element) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/remove-element/">EN</a> | <a href="https://leetcode.cn/problems/remove-element/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>2. 合併兩個有序陣列 (Merge Sorted Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/merge-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/merge-sorted-array/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>3. 反轉字串 (Reverse String) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/reverse-string/">EN</a> | <a href="https://leetcode.cn/problems/reverse-string/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>4. 兩數之和 (Two Sum) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/two-sum/">EN</a> | <a href="https://leetcode.cn/problems/two-sum/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>5. 最大子陣列和 (Maximum Subarray) <span class="topic-tag">Array</span> <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/maximum-subarray/">EN</a> | <a href="https://leetcode.cn/problems/maximum-subarray/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>6. 最長公共前綴 (Longest Common Prefix) <span class="topic-tag">String</span></td>
+            <td><a href="https://leetcode.com/problems/longest-common-prefix/">EN</a> | <a href="https://leetcode.cn/problems/longest-common-prefix/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>7. 驗證回文串 (Valid Palindrome) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/valid-palindrome/">EN</a> | <a href="https://leetcode.cn/problems/valid-palindrome/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>8. 字串中的第一個唯一字元 (First Unique Character) <span class="topic-tag">String</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/first-unique-character-in-a-string/">EN</a> | <a href="https://leetcode.cn/problems/first-unique-character-in-a-string/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span> <span class="topic-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>9. 有效的括號 (Valid Parentheses) <span class="topic-tag">String</span> <span class="topic-tag">Stack</span></td>
+            <td><a href="https://leetcode.com/problems/valid-parentheses/">EN</a> | <a href="https://leetcode.cn/problems/valid-parentheses/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>10. 移動零 (Move Zeroes) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/move-zeroes/">EN</a> | <a href="https://leetcode.cn/problems/move-zeroes/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>11. 買賣股票的最佳時機 (Best Time to Buy Stock) <span class="topic-tag">Array</span> <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">EN</a> | <a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>12. 多數元素 (Majority Element) <span class="topic-tag">Array</span></td>
+            <td><a href="https://leetcode.com/problems/majority-element/">EN</a> | <a href="https://leetcode.cn/problems/majority-element/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>13. 旋轉陣列 (Rotate Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/rotate-array/">EN</a> | <a href="https://leetcode.cn/problems/rotate-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>14. 存在重複元素 (Contains Duplicate) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/contains-duplicate/">EN</a> | <a href="https://leetcode.cn/problems/contains-duplicate/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>15. 缺失數字 (Missing Number) <span class="topic-tag">Array</span> <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/missing-number/">EN</a> | <a href="https://leetcode.cn/problems/missing-number/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第二週：鏈表與雙指針 (Linked List & Two Pointers)</h2>
+      <p><strong>目標：：</strong>理解指針操作和常見的鏈表模式。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>16. 反轉鏈表 (Reverse Linked List) <span class="topic-tag">LL</span></td>
+            <td><a href="https://leetcode.com/problems/reverse-linked-list/">EN</a> | <a href="https://leetcode.cn/problems/reverse-linked-list/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>17. 鏈表中環的檢測 (Linked List Cycle) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/linked-list-cycle/">EN</a> | <a href="https://leetcode.cn/problems/linked-list-cycle/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>18. 合併兩個有序鏈表 (Merge Two Sorted Lists) <span class="topic-tag">LL</span></td>
+            <td><a href="https://leetcode.com/problems/merge-two-sorted-lists/">EN</a> | <a href="https://leetcode.cn/problems/merge-two-sorted-lists/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>19. 刪除鏈表的倒數第N個節點 (Remove Nth Node From End) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">EN</a> | <a href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>20. 相交鏈表 (Intersection of Two Linked Lists) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/">EN</a> | <a href="https://leetcode.cn/problems/intersection-of-two-linked-lists/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>21. 迴文鏈表 (Palindrome Linked List) <span class="topic-tag">LL</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/palindrome-linked-list/">EN</a> | <a href="https://leetcode.cn/problems/palindrome-linked-list/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>22. 盛最多水的容器 (Container With Most Water) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/container-with-most-water/">EN</a> | <a href="https://leetcode.cn/problems/container-with-most-water/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>23. 三數之和 (3Sum) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/3sum/">EN</a> | <a href="https://leetcode.cn/problems/3sum/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>24. 最接近的三數之和 (3Sum Closest) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/3sum-closest/">EN</a> | <a href="https://leetcode.cn/problems/3sum/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>25. 移除重複元素 (Remove Duplicates from Sorted Array) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/remove-duplicates-from-sorted-array/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>26. 反轉字串中的母音字母 (Reverse Vowels of a String) <span class="topic-tag">String</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/">EN</a> | <a href="https://leetcode.cn/problems/reverse-string/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>27. 陣列中第K個最大元素 (Kth Largest Element in an Array) <span class="topic-tag">Array</span> <span class="topic-tag">Sort</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">EN</a> | <a href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>28. 排序鏈表 (Sort List) <span class="topic-tag">LL</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/sort-list/">EN</a> | <a href="https://leetcode.cn/problems/sort-list/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td>(複習鏈表排序)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>29. 雙指針技巧複習</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第三週：樹與二元樹 (Trees & Binary Trees)</h2>
+      <p><strong>目標：：</strong>掌握樹的遍歷（遞迴與迭代）和基本屬性判斷。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>30. 二元樹的最大深度 (Maximum Depth of Binary Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">EN</a> | <a href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>31. 將有序陣列轉換為二元搜尋樹 (Convert Sorted Array to BST) <span class="topic-tag">Tree</span> <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/">EN</a> | <a href="https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>32. 路徑總和 (Path Sum) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/path-sum/">EN</a> | <a href="https://leetcode.cn/problems/path-sum/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>33. 二元樹的層序遍歷 (Binary Tree Level Order Traversal) <span class="topic-tag">Tree</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">EN</a> | <a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>34. 對稱二元樹 (Symmetric Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/symmetric-tree/">EN</a> | <a href="https://leetcode.cn/problems/symmetric-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>35. 翻轉二元樹 (Invert Binary Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/invert-binary-tree/">EN</a> | <a href="https://leetcode.cn/problems/invert-binary-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>36. 驗證二元搜尋樹 (Validate Binary Search Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/validate-binary-search-tree/">EN</a> | <a href="https://leetcode.cn/problems/validate-binary-search-tree/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>37. 二元搜尋樹中搜尋 (Search in a BST) <span class="topic-tag">Tree</span> <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/search-in-a-binary-search-tree/">EN</a> | <a href="https://leetcode.cn/problems/search-in-a-binary-search-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>38. 二元搜尋樹的插入操作 (Insert into a BST) <span class="topic-tag">Tree</span></td>
+            <td><a href="https://leetcode.com/problems/insert-into-a-binary-search-tree/">EN</a> | <a href="https://leetcode.cn/problems/insert-into-a-binary-search-tree/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>39. 二元樹的中序遍歷 (Binary Tree Inorder Traversal) <span class="topic-tag">Tree</span> <span class="topic-tag">Stack</span></td>
+            <td><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">EN</a> | <a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>40. 二元樹的前序遍歷 (Binary Tree Preorder Traversal) <span class="topic-tag">Tree</span> <span class="topic-tag">Stack</span></td>
+            <td><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">EN</a> | <a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>41. N叉樹的後序遍歷 (N-ary Tree Postorder Traversal) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/n-ary-tree-postorder-traversal/">EN</a> | <a href="https://leetcode.cn/problems/n-ary-tree-postorder-traversal/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>42. 二元樹的直徑 (Diameter of Binary Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/diameter-of-binary-tree/">EN</a> | <a href="https://leetcode.cn/problems/diameter-of-binary-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>43. 合併二元樹 (Merge Two Binary Trees) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/merge-two-binary-trees/">EN</a> | <a href="https://leetcode.cn/problems/merge-two-binary-trees/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>44. 另一棵樹的子樹 (Subtree of Another Tree) <span class="topic-tag">Tree</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/subtree-of-another-tree/">EN</a> | <a href="https://leetcode.cn/problems/subtree-of-another-tree/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第四週：排序、搜尋與二元搜尋 (Sorting, Searching & Binary Search)</h2>
+      <p><strong>目標：：</strong>掌握二分搜尋的各種應用情境和基本排序算法。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>45. 第一個錯誤的版本 (First Bad Version) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/first-bad-version/">EN</a> | <a href="https://leetcode.cn/problems/first-bad-version/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>46. 搜尋插入位置 (Search Insert Position) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/search-insert-position/">EN</a> | <a href="https://leetcode.cn/problems/search-insert-position/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>47. x的平方根 (Sqrt(x)) <span class="topic-tag">BS</span> <span class="topic-tag">Math</span></td>
+            <td><a href="https://leetcode.com/problems/sqrtx/">EN</a> | <a href="https://leetcode.cn/problems/sqrtx/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>48. 有序陣列中的單一元素 (Single Element in a Sorted Array) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/single-element-in-a-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/single-element-in-a-sorted-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>49. 尋找峰值 (Find Peak Element) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/find-peak-element/">EN</a> | <a href="https://leetcode.cn/problems/find-peak-element/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>50. 在排序陣列中查找元素的第一個和最後一個位置 (Find First/Last Position) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>51. 合併區間 (Merge Intervals) <span class="topic-tag">Array</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/merge-intervals/">EN</a> | <a href="https://leetcode.cn/problems/merge-intervals/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>52. 搜尋二維矩陣 II (Search a 2D Matrix II) <span class="topic-tag">BS</span> <span class="topic-tag">Matrix</span></td>
+            <td><a href="https://leetcode.com/problems/search-a-2d-matrix-ii/">EN</a> | <a href="https://leetcode.cn/problems/search-a-2d-matrix-ii/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>53. 有序矩陣中第K小的元素 (Kth Smallest Element in a Sorted Matrix) <span class="topic-tag">BS</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/">EN</a> | <a href="https://leetcode.cn/problems/kth-smallest-element-in-a-sorted-matrix/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>54. 顏色分類 (Sort Colors) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/sort-colors/">EN</a> | <a href="https://leetcode.cn/problems/sort-colors/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>55. 前K個高頻元素 (Top K Frequent Elements) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/top-k-frequent-elements/">EN</a> | <a href="https://leetcode.cn/problems/top-k-frequent-elements/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>56. 陣列中的第K個最大元素 (Kth Largest Element in an Array) <span class="topic-tag">Array</span> <span class="topic-tag">Heap</span> <span class="topic-tag">Sort</span></td>
+            <td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">EN</a> | <a href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>57. 尋找旋轉排序陣列中的最小值 (Find Minimum in Rotated Sorted Array) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>58. 搜尋旋轉排序陣列 (Search in Rotated Sorted Array) <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">EN</a> | <a href="https://leetcode.cn/problems/search-in-rotated-sorted-array/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>59. 複習二元搜尋</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第五週：動態規劃基礎 (Dynamic Programming - Basics)</h2>
+      <p><strong>目標：：</strong>理解DP的基本思想，解決經典的一維和簡單二維DP問題。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>60. 爬樓梯 (Climbing Stairs) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/climbing-stairs/">EN</a> | <a href="https://leetcode.cn/problems/climbing-stairs/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>61. 打家劫舍 (House Robber) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/house-robber/">EN</a> | <a href="https://leetcode.cn/problems/house-robber/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>62. 買賣股票的最佳時機 (Best Time to Buy and Sell Stock) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">EN</a> | <a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>63. 最大子陣列和 (Maximum Subarray) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/maximum-subarray/">EN</a> | <a href="https://leetcode.cn/problems/maximum-subarray/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td>(DP解法複習)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>64. 乘積最大子陣列 (Maximum Product Subarray) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/maximum-product-subarray/">EN</a> | <a href="https://leetcode.cn/problems/maximum-product-subarray/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>65. 零錢兌換 (Coin Change) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/coin-change/">EN</a> | <a href="https://leetcode.cn/problems/coin-change/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>66. 硬幣變化 II (Coin Change 2) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/coin-change-2/">EN</a> | <a href="https://leetcode.cn/problems/coin-change/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>67. 最長遞增子序列 (Longest Increasing Subsequence) <span class="topic-tag">DP</span> <span class="topic-tag">BS</span></td>
+            <td><a href="https://leetcode.com/problems/longest-increasing-subsequence/">EN</a> | <a href="https://leetcode.cn/problems/longest-increasing-subsequence/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>68. 單詞拆分 (Word Break) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/word-break/">EN</a> | <a href="https://leetcode.cn/problems/word-break/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>69. 最長公共子序列 (Longest Common Subsequence) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/longest-common-subsequence/">EN</a> | <a href="https://leetcode.cn/problems/longest-common-subsequence/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>70. 編輯距離 (Edit Distance) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/edit-distance/">EN</a> | <a href="https://leetcode.cn/problems/edit-distance/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>71. 不同路徑 (Unique Paths) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/unique-paths/">EN</a> | <a href="https://leetcode.cn/problems/unique-paths/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>72. 最小路徑和 (Minimum Path Sum) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/minimum-path-sum/">EN</a> | <a href="https://leetcode.cn/problems/path-sum/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>73. 組合總和 IV (Combination Sum IV) <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/combination-sum-iv/">EN</a> | <a href="https://leetcode.cn/problems/combination-sum-iv/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>74. DP技巧複習</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第六週：哈希表與堆 (Hash Table & Heap)</h2>
+      <p><strong>目標：：</strong>熟練運用哈希表進行快速查找和去重，掌握堆在優先級隊列中的應用。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>75. 最小棧 (Min Stack) <span class="topic-tag">Stack</span></td>
+            <td><a href="https://leetcode.com/problems/min-stack/">EN</a> | <a href="https://leetcode.cn/problems/min-stack/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>76. 有效的字母異位詞 (Valid Anagram) <span class="topic-tag">String</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/valid-anagram/">EN</a> | <a href="https://leetcode.cn/problems/valid-anagram/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>77. 字母異位詞分組 (Group Anagrams) <span class="topic-tag">String</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/group-anagrams/">EN</a> | <a href="https://leetcode.cn/problems/group-anagrams/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>78. 前K個高頻元素 (Top K Frequent Elements) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/top-k-frequent-elements/">EN</a> | <a href="https://leetcode.cn/problems/top-k-frequent-elements/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>79. 尋找陣列中重複的數字 (Find Duplicate Number) <span class="topic-tag">Array</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/find-the-duplicate-number/">EN</a> | <a href="https://leetcode.cn/problems/find-the-duplicate-number/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>80. 最長連續序列 (Longest Consecutive Sequence) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/longest-consecutive-sequence/">EN</a> | <a href="https://leetcode.cn/problems/longest-consecutive-sequence/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>81. 兩數之和 (Two Sum) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/two-sum/">EN</a> | <a href="https://leetcode.cn/problems/two-sum/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>82. 存在重複元素 (Contains Duplicate) <span class="topic-tag">Array</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/contains-duplicate/">EN</a> | <a href="https://leetcode.cn/problems/contains-duplicate/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>83. 快樂數 (Happy Number) <span class="topic-tag">Math</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/happy-number/">EN</a> | <a href="https://leetcode.cn/problems/happy-number/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>84. 最小的K個數 (Kth Smallest Element) <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">EN</a> | <a href="https://leetcode.cn/problems/kth-smallest-element-in-a-bst/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>85. 資料流中的中位數 (Find Median from Data Stream) <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/find-median-from-data-stream/">EN</a> | <a href="https://leetcode.cn/problems/find-median-from-data-stream/">CN</a></td>
+            <td class="difficulty-hard">Hard</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>86. 合併K個排序鏈表 (Merge K Sorted Lists) <span class="topic-tag">LL</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/merge-k-sorted-lists/">EN</a> | <a href="https://leetcode.cn/problems/sort-list/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>87. 頂部K個頻繁單詞 (Top K Frequent Words) <span class="topic-tag">String</span> <span class="topic-tag">HT</span> <span class="topic-tag">Heap</span></td>
+            <td><a href="https://leetcode.com/problems/top-k-frequent-words/">EN</a> | <a href="https://leetcode.cn/problems/top-k-frequent-words/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>88. 哈希表與堆技巧複習</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第七週：圖與廣度/深度優先搜尋 (Graph & BFS/DFS)</h2>
+      <p><strong>目標：：</strong>理解圖的基本概念，掌握BFS和DFS在圖和樹問題中的應用。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>89. 島嶼數量 (Number of Islands) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/number-of-islands/">EN</a> | <a href="https://leetcode.cn/problems/number-of-islands/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>90. 克隆圖 (Clone Graph) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/clone-graph/">EN</a> | <a href="https://leetcode.cn/problems/clone-graph/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>91. 課程表 (Course Schedule) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/course-schedule/">EN</a> | <a href="https://leetcode.cn/problems/course-schedule/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>92. 太平洋大西洋水流問題 (Pacific Atlantic Water Flow) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/">EN</a> | <a href="https://leetcode.cn/problems/pacific-atlantic-water-flow/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>93. 矩陣中的最長遞增路徑 (Longest Increasing Path in Matrix) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">DP</span></td>
+            <td><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/">EN</a> | <a href="https://leetcode.cn/problems/longest-increasing-path-in-a-matrix/">CN</a></td>
+            <td class="difficulty-hard">Hard</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>94. 洪水填充 (Flood Fill) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/flood-fill/">EN</a> | <a href="https://leetcode.cn/problems/flood-fill/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>95. 01矩陣 (01 Matrix) <span class="topic-tag">Graph</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/01-matrix/">EN</a> | <a href="https://leetcode.cn/problems/01-matrix/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>96. 牆與門 (Walls and Gates) <span class="topic-tag">Graph</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/walls-and-gates/">EN</a> | <a href="https://leetcode.cn/problems/walls-and-gates/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>97. 員工的重要性 (Employee Importance) <span class="topic-tag">Graph</span> <span class="topic-tag">DFS</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/employee-importance/">EN</a> | <a href="https://leetcode.cn/problems/employee-importance/">CN</a></td>
+            <td class="difficulty-easy">Easy</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>98. 樹的層次遍歷 (Binary Tree Level Order Traversal) <span class="topic-tag">Tree</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">EN</a> | <a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td>(複習)</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>99. 樹的深度優先遍歷 (DFS) 複習</td>
+            <td>-<a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>100. 樹的廣度優先遍歷 (BFS) 複習</td>
+            <td>-<a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>101. 腐爛的橘子 (Rotting Oranges) <span class="topic-tag">Graph</span> <span class="topic-tag">BFS</span></td>
+            <td><a href="https://leetcode.com/problems/rotting-oranges/">EN</a> | <a href="https://leetcode.cn/problems/rotting-oranges/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>102. 網絡延遲時間 (Network Delay Time) <span class="topic-tag">Graph</span> <span class="topic-tag">Dijkstra</span></td>
+            <td><a href="https://leetcode.com/problems/network-delay-time/">EN</a> | <a href="https://leetcode.cn/problems/network-delay-time/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>103. 圖與BFS/DFS技巧複習</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>📅 第八週：進階資料結構與綜合應用 (Advanced DS & Mixed)</h2>
+      <p><strong>目標：：</strong>學習並應用Trie、Union-Find等進階資料結構，解決更複雜的問題。</p>
+      <table>
+         <tr>
+            <th>日期</th>
+            <th>題目名稱 (類型)</th>
+            <th>LeetCode 連結</th>
+            <th>難度</th>
+            <th>備註 (高頻公司)</th>
+         </tr>
+         <tr>
+            <td><strong>週一</strong></td>
+            <td>104. 實現Trie (前綴樹) (Implement Trie) <span class="topic-tag">Trie</span></td>
+            <td><a href="https://leetcode.com/problems/implement-trie-prefix-tree/">EN</a> | <a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>105. 添加與搜尋單詞 - 資料結構設計 (Add and Search Word) <span class="topic-tag">Trie</span> <span class="topic-tag">DFS</span></td>
+            <td><a href="https://leetcode.com/problems/add-and-search-word-data-structure-design/">EN</a> | <a href="https://leetcode.cn/problems/add-and-search-word-data-structure-design/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>106. 聯合-查找 (Union-Find) 基礎</td>
+            <td>-<a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td>理論學習</td>
+         </tr>
+         <tr>
+            <td><strong>週二</strong></td>
+            <td>107. 省份數量 (Number of Provinces) <span class="topic-tag">UnionFind</span> <span class="topic-tag">Graph</span></td>
+            <td><a href="https://leetcode.com/problems/number-of-provinces/">EN</a> | <a href="https://leetcode.cn/problems/number-of-provinces/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>108. 朋友圈 (Friend Circles) <span class="topic-tag">UnionFind</span> <span class="topic-tag">Graph</span></td>
+            <td><a href="https://leetcode.com/problems/friend-circles/">EN</a> | <a href="https://leetcode.cn/problems/friend-circles/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>109. 最小生成樹 (Minimum Spanning Tree) 基礎</td>
+            <td>-<a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td>理論學習 (Kruskal/Prim)</td>
+         </tr>
+         <tr>
+            <td><strong>週三</strong></td>
+            <td>110. 連通分量數 (Number of Connected Components) <span class="topic-tag">UnionFind</span> <span class="topic-tag">Graph</span></td>
+            <td><a href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/">EN</a> | <a href="https://leetcode.cn/problems/number-of-connected-components-in-an-undirected-graph/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>111. 帳戶合併 (Accounts Merge) <span class="topic-tag">UnionFind</span> <span class="topic-tag">Graph</span></td>
+            <td><a href="https://leetcode.com/problems/accounts-merge/">EN</a> | <a href="https://leetcode.cn/problems/accounts-merge/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>112. 矩陣置零 (Set Matrix Zeroes) <span class="topic-tag">Array</span></td>
+            <td><a href="https://leetcode.com/problems/set-matrix-zeroes/">EN</a> | <a href="https://leetcode.cn/problems/set-matrix-zeroes/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週四</strong></td>
+            <td>113. 螺旋矩陣 (Spiral Matrix) <span class="topic-tag">Array</span></td>
+            <td><a href="https://leetcode.com/problems/spiral-matrix/">EN</a> | <a href="https://leetcode.cn/problems/spiral-matrix/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>114. 旋轉圖像 (Rotate Image) <span class="topic-tag">Array</span></td>
+            <td><a href="https://leetcode.com/problems/rotate-image/">EN</a> | <a href="https://leetcode.cn/problems/rotate-image/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>115. 字符串轉換整數 (atoi) (String to Integer (atoi)) <span class="topic-tag">String</span></td>
+            <td><a href="https://leetcode.com/problems/string-to-integer-atoi/">EN</a> | <a href="#">CN</a></td>
+            <td class="difficulty-unknown">Unknown</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td><strong>週五</strong></td>
+            <td>116. LRU 緩存 (LRU Cache) <span class="topic-tag">Design</span> <span class="topic-tag">LL</span> <span class="topic-tag">HT</span></td>
+            <td><a href="https://leetcode.com/problems/lru-cache/">EN</a> | <a href="https://leetcode.cn/problems/lru-cache/">CN</a></td>
+            <td class="difficulty-medium">Medium</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>117. 最小覆蓋子串 (Minimum Window Substring) <span class="topic-tag">String</span> <span class="topic-tag">HT</span> <span class="topic-tag">2P</span></td>
+            <td><a href="https://leetcode.com/problems/minimum-window-substring/">EN</a> | <a href="https://leetcode.cn/problems/minimum-window-substring/">CN</a></td>
+            <td class="difficulty-hard">Hard</td>
+            <td><span class="company-tag">G</span> <span class="company-tag">A</span> <span class="company-tag">M</span></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td>118. 綜合應用技巧複習</td>
+            <td>-</td>
+            <td>-</td>
+            <td>重做本週錯題</td>
+         </tr>
+      </table>
+      <div class="page-break"></div>
+      <h2>總結與建議</h2>
+      <p><strong>持續練習：：</strong> 刷題是一個長期過程，即使完成150題，也要保持每天練習的習慣。</p>
+      <p><strong>理解而非記憶：：</strong> 確保理解每道題目的解題思路、時間複雜度和空間複雜度，而不是死記硬背。</p>
+      <p><strong>多語言實現：：</strong> 嘗試用C/C++實現，因為韌體工程師面試通常會要求C/C++。</p>
+      <p><strong>模擬面試：：</strong> 在後期可以嘗試進行模擬面試，提高臨場應變能力。</p>
+      <p><strong>擴展學習：：</strong> 如果時間允許，可以進一步學習Trie、Segment Tree、Fenwick Tree等進階資料結構，以及更複雜的圖算法（如Dijkstra、Floyd-Warshall）。</p>
+      <p>祝您備考順利，早日拿到心儀的Offer！</p>
