@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jheng-Jhong (Victor) Wu - Resume (A4)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 210mm; /* A4 width */
+            height: auto; /* Allow height to adjust */
+            margin: 15mm; /* Standard A4 margin */
+            padding: 0;
+            line-height: 1.5;
+            color: #333;
+            box-sizing: border-box;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            font-size: 24px; /* Slightly smaller for A4 */
+            margin-bottom: 8px;
+        }
+        h2 {
+            font-size: 18px;
+            border-bottom: 1.5px solid #2c3e50;
+            padding-bottom: 4px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        p, li {
+            font-size: 14px; /* Adjusted for A4 readability */
+            margin: 4px 0;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .contact-info {
+            margin-bottom: 15px;
+        }
+        .contact-info p {
+            margin: 3px 0;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 10px;
+        }
+        ul ul {
+            list-style-type: circle;
+            margin-left: 20px;
+        }
+        .languages {
+            list-style-type: none;
+        }
+        .languages li:before {
+            content: "- ";
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .job {
+            margin-bottom: 15px;
+        }
+        .job ul {
+            margin-top: 8px;
+        }
+        /* Ensure content stays within A4 bounds */
+        @media print {
+            body {
+                margin: 0;
+                padding: 15mm;
+                width: 210mm;
+                height: auto;
+            }
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wu, Jheng-Jhong (Victor Wu)</h1>
+        <div class="contact-info">
+            <p>Email: <a href="mailto:goodwater.wu@gmail.com">goodwater.wu@gmail.com</a></p>
+            <p>Phone: +886 933823479</p>
+            <p>LinkedIn: <a href="https://tinyurl.com/jjwulinkedin">linkedin.com/in/jjwulinkedin</a></p>
+            <p>GitHub: <a href="https://tinyurl.com/jjwugithub">github.com/jjwugithub</a></p>
+            <p>Chinese Resume: <a href="https://tinyurl.com/jjwucakeresume">View Chinese Resume</a></p>
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Professional Summary</h2>
+        <p>Embedded Linux firmware engineer with over 15 years of experience in full-stack embedded development, from Bootloader / BSP / Kernel / driver to user programs design and optimization. Good at designing a system, debugging complex issues, and improving system performance and reliability.</p>
+    </div>
+
+    <div class="section">
+        <h2>Core Skills</h2>
+        <ul>
+            <li><strong>Languages / Scripting:</strong> C, Shell script, Python</li>
+            <li><strong>OS / Platform:</strong> Linux, FreeRTOS</li>
+            <li><strong>Interfaces / Protocols:</strong> I2C, SPI, UART, GPIO, PWM</li>
+            <li><strong>System Integration:</strong> Bootloader, Linux firmware, OTA / Firmware Update Mechanisms</li>
+            <li><strong>Debug & Tools:</strong> JLINK, Trace32, GDB, Logic Analyzer, Oscilloscope, Wireshark, tcpdump</li>
+            <li><strong>Version Control:</strong> Git, SVN</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Education</h2>
+        <ul>
+            <li>National Tsing Hua University 2007/09 ~ 2009/06, Master of Information Systems and Applications</li>
+            <li>Fu Jen Catholic University 2003/09 ~ 2007/06, Bachelor of Information Management</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Working Experience</h2>
+        <div class="job">
+            <h3>Righ, Inc. (U.S. company) (Spin-off from Plume Design) - Staff Software Engineer</h3>
+            <p>2024/06 ~ 2025/10</p>
+            <ul>
+                <li>Wi-Fi 6/6e/7 product firmware/software development (Qualcomm IPQ5322)
+                    <ul>
+                        <li>Helped with board bring up</li>
+                        <li>Designed and developed a CLI for FQC</li>
+                        <li>Take advantage of Wireshark and tcpdump to debug network issues</li>
+                    </ul>
+                </li>
+                <li>Designed and implemented the Righ Final Quality Control test tool (Raspberry Pi)
+                    <ul>
+                        <li>Set VLAN on Raspberry Pi / DUTs / switches</li>
+                        <li>Designed and developed a FQC test system through pi-gen</li>
+                        <li>Designed and developed a web interface for FQC</li>
+                        <li>Developed test cases (certificate / fuse / fan / ethernet / Wi-Fi / Bluetooth / 5G)</li>
+                    </ul>
+                </li>
+                <li>Developed POC for AI Bluetooth earphones (Realtek RTL8735B + RTL8773D + Camera)</li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>Plume Design, Inc. (U.S. company) - Staff BSP/Embedded Software Engineer</h3>
+            <p>2022/03 ~ 2024/06</p>
+            <ul>
+                <li>Plume pods (Wi-Fi 6/6e) maintenance/development (Qualcomm IPQ5322)
+                    <ul>
+                        <li>Help with board bring up</li>
+                        <li>Take advantage of Wireshark and tcpdump to debug network issues</li>
+                        <li>Added new CLI commands for FQC</li>
+                    </ul>
+                </li>
+                <li>Maintained the Plume Final Quality Control test tool (Raspberry Pi)</li>
+                <li>Designed and developed a stress test tool to test our products (Raspberry Pi)</li>
+                <li>Quectel RM520N-GL 5G module driver integration and test</li>
+                <li>Supervised an intern to create auto power consumption test cases</li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>BizLink Technology, Inc. - Senior Engineer</h3>
+            <p>2018/09 ~ 2022/03</p>
+            <ul>
+                <li>Developed a video conference dock on a Linux-based platform (NXP i.MX8MQ / Nvidia Jetson TX2 / Nvidia Jetson Nano)
+                    <ul>
+                        <li>Developed a firmware upgrade from a MicroSD card</li>
+                        <li>Developed a system recovery function</li>
+                        <li>Developed a pure Linux desktop environment to auto-start our APP</li>
+                        <li>Build up an APT server and update our software through the built-in software manager</li>
+                    </ul>
+                </li>
+                <li>Designed and developed Wi-Fi communication modules for EVSE devices, integrated with AWS IoT (MTK MT7697)
+                    <ul>
+                        <li>Developed Wi-Fi profiling function</li>
+                        <li>Developed the FOTA function</li>
+                        <li>Developed a user profile recovery function</li>
+                        <li>Established a link and registered the EVSE device to AWS IoT</li>
+                        <li>Designed and developed a communication protocol with AWS IoT</li>
+                    </ul>
+                </li>
+                <li>Designed and developed a Wi-Fi 6/6E dock (Qualcomm IPQ6010)
+                    <ul>
+                        <li>Flash repartition</li>
+                        <li>Developed file generators for provisioning and other new partitions</li>
+                        <li>Board bring up</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>VATICS, Inc. (Chip vendor) - Staff Engineer</h3>
+            <p>2017/04 ~ 2018/09</p>
+            <ul>
+                <li>Bring up a loader and U-boot for the next-generation SOC
+                    <ul>
+                        <li>Developed HASH scripts on u-boot and stand-alone programs on u-boot to test the clock, watchdog, and SPI</li>
+                        <li>Developed BASH scripts and programs on Linux to test the clock, watchdog, and SPI</li>
+                        <li>Developed SPI framework/controller/device drivers</li>
+                        <li>Developed SPI controller, SPI NOR, SPI NAND drivers from half-duplex to full-duplex mode on u-boot and Linux kernel</li>
+                        <li>Porting SPI devices such as SPI encryption chip, SPI NOR, SPI NAND on u-boot and Linux kernel</li>
+                        <li>Developed the watchdog driver</li>
+                    </ul>
+                </li>
+                <li>Developed a dual OS function
+                    <ul>
+                        <li>Pre-load U-boot environment variables on the loader phase for developing the dual OS function</li>
+                    </ul>
+                </li>
+                <li>Developed a power management function</li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>BizLink Technology, Inc. - Senior Engineer</h3>
+            <p>2015/06 ~ 2017/03</p>
+            <ul>
+                <li>Developed USB over IP (Raspberry Pi 3B+)
+                    <ul>
+                        <li>Modified the USB/IP driver and APP for running on Raspberry Pi</li>
+                        <li>Developed USB3.0 feature on USB/IP driver and APP</li>
+                        <li>Modified the USB/IP driver and APP for running on Windows 7/8/10</li>
+                    </ul>
+                </li>
+                <li>Developed IPKVM on a Linux-based platform
+                    <ul>
+                        <li>Developed a demo web to remote-control an IPMI-enabled server (Apache2+Django+Python+HTML5+Javascript+CSS+noVNC+IPMI)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>JSW - Senior Engineer</h3>
+            <p>2014/05 ~ 2015/05</p>
+            <ul>
+                <li>Developed and maintained an IPCAM firmware (GrainMedia GM8126)
+                    <ul>
+                        <li>Improved streaming performance</li>
+                        <li>Solved the system halt caused by running out of RAM by workaround methods</li>
+                        <li>Designed and developed a protocol between IPCAM and phone APPs</li>
+                        <li>Developed a video recording schedule function</li>
+                        <li>Developed a video RTMP streaming function to the Amazon Wowza Streaming Server and the Akamai Server</li>
+                    </ul>
+                </li>
+                <li>Developed a smart home control IoT Gateway (Ralink RT5350 / Sonix SN98601)
+                    <ul>
+                        <li>Bring up and porting APPs from Ralink RT5350 to Sonix SN98601 within two weeks</li>
+                        <li>Designed and developed protocols/functions between the gateway and phone APPs, and between the gateway and sensors</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>Zinwell - Senior Engineer</h3>
+            <p>2013/03 ~ 2014/04</p>
+            <ul>
+                <li>Developed an IP set-up box (Broadcom)
+                    <ul>
+                        <li>Board bring up</li>
+                        <li>Developed BASH scripts and programs to test PCB IO ports like USB, HDMI, IR, LED, Wi-Fi module, and RF4CE module</li>
+                        <li>Porting open-source packages like ffmpeg, hostapd, libupnp, nginx, ntfs-3g, Wi-Fi driver</li>
+                        <li>Used ffmpeg and m3u8-segmentor to test HTTP Live Streaming (HLS)</li>
+                        <li>Helped with the second source experiments</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="job">
+            <h3>SanJet Technology Corp. - Senior Engineer</h3>
+            <p>2009/10 ~ 2013/02</p>
+            <ul>
+                <li>Maintained pocket DVs (Ambarella A2S)</li>
+                <li>Developed the first 3D pocket DV in the world</li>
+                <li>Developed Car recorders (A5L / A5S boss)
+                    <ul>
+                        <li>Board bring up</li>
+                        <li>Developed an emergency recording function and applied for a patent</li>
+                        <li>Developed TPMS function</li>
+                        <li>Developed a time-lapse function</li>
+                        <li>Developed IPC function between μItron and Linux</li>
+                        <li>Porting Wi-Fi driver</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Languages</h2>
+        <ul class="languages">
+            <li>English: Moderately (TOEIC 670)</li>
+            <li>Japanese: Moderately (JLPT N2)</li>
+            <li>Chinese: Mandarin (Native) / Taiwanese (Native)</li>
+        </ul>
+    </div>
+</body>
+</html>
