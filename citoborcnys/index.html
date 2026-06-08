@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheat Sheet</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Use marked.js for full Markdown support -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Cheat Sheet</h1>
+        <div class="actions">
+            <button id="loadFileBtn">Load JSON File</button>
+            <button id="addBtn">Add</button>
+            <button id="modifyBtn">Modify</button>
+            <button id="deleteBtn">Delete</button>
+        </div>
+    </header>
+    <main>
+        <nav id="sidebar"></nav>
+        <article id="content"></article>
+    </main>
+
+    <!-- Modals for Add/Modify/Delete operations -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

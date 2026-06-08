@@ -1,0 +1,20 @@
+{
+  "title": "SyncRobotic Cheat Sheet",
+  "items": [
+    {
+      "title": "Basic Commands",
+      "content": "Use 'sync-run' to start the system.\nUse 'sync-stop' to halt processes.\nCheck status with 'sync-status'.",
+      "id": "0ef72085-357d-410b-ba98-3e0dabebc614"
+    },
+    {
+      "title": "Configuration",
+      "content": "Edit 'config.yaml' to adjust robotic parameters.\nDefault port: 8080.",
+      "id": "db9f09e8-7b47-4b20-b9f4-ae6fe4a3fd0c"
+    },
+    {
+      "title": "Troubleshooting",
+      "content": "If errors occur, check logs in /var/log/syncrobotic.\nRestart services if necessary.",
+      "id": "08575035-c3e6-4302-87e3-d347d0fa7d57"
+    }
+  ]
+}
