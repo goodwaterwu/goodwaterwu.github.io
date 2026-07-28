@@ -1,4 +1,7 @@
-// Simple UUID generator
+/**
+ * @brief Generates a UUID-like identifier for a cheat-sheet item.
+ * @return {string} A generated identifier.
+ */
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -14,6 +17,10 @@ const content = document.getElementById('content');
 const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
 
+/**
+ * @brief Persists the current data to the file selected by the user.
+ * @return {Promise<void>} Resolves when the file has been written.
+ */
 async function saveData() {
     if (!fileHandle) return;
     const writable = await fileHandle.createWritable();
@@ -21,6 +28,10 @@ async function saveData() {
     await writable.close();
 }
 
+/**
+ * @brief Renders the sidebar and Markdown content from the current data.
+ * @return {void}
+ */
 function render() {
     sidebar.innerHTML = '';
     content.innerHTML = '';
@@ -47,24 +58,34 @@ function render() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlContent;
         
-        // 3. Extract Headings for Sidebar (h1-h5)
-        const headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5');
-        headings.forEach(h => {
-            const text = h.textContent;
-            const id = text.replace(/\s+/g, '_') + '-' + item.id;
-            h.id = id;
+        // 3. Extract headings for the sidebar and assign collision-free anchors.
+        const headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach((heading, headingIndex) => {
+            const text = heading.textContent;
+            const id = `heading-${item.id}-${headingIndex}`;
+            heading.id = id;
             
-            const level = parseInt(h.tagName.substring(1));
+            const level = parseInt(heading.tagName.substring(1), 10);
             // Ensure padding is non-negative and starts from 0px for H1
             const padding = Math.max(0, (level - 1) * 10) + 'px';
             sidebar.appendChild(createSubLink(text, id, padding));
         });
 
-        section.innerHTML = `<h1>${item.title}</h1><div>${tempDiv.innerHTML}</div>`;
+        const sectionTitle = document.createElement('h1');
+        sectionTitle.textContent = item.title;
+        section.appendChild(sectionTitle);
+        section.appendChild(tempDiv);
         content.appendChild(section);
     });
 }
 
+/**
+ * @brief Creates a sidebar link to a Markdown heading.
+ * @param {string} text Heading text to display.
+ * @param {string} id Anchor identifier for the heading.
+ * @param {string} padding Left padding that indicates the heading level.
+ * @return {HTMLAnchorElement} The configured sidebar link.
+ */
 function createSubLink(text, id, padding) {
     const link = document.createElement('a');
     link.href = `#${id}`;
@@ -76,8 +97,127 @@ function createSubLink(text, id, padding) {
     return link;
 }
 
+/**
+ * @brief Escapes text before it is interpolated into modal option markup.
+ * @param {string} value Text to escape.
+ * @return {string} HTML-safe text.
+ */
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+/**
+ * @brief Creates options for selecting a top-level cheat-sheet item.
+ * @return {string} HTML option elements for the available items.
+ */
 function getSelectOptions() {
-    return appData.items.map(item => `<option value="${item.id}">${item.title}</option>`).join('');
+    return appData.items.map(item => (
+        `<option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>`
+    )).join('');
+}
+
+/**
+ * @brief Finds ATX Markdown headings and their editable content ranges.
+ *
+ * A heading owns every following line up to the next heading at the same or a
+ * higher level. Nested headings therefore remain part of their parent section.
+ * @param {string} markdown Markdown source to inspect.
+ * @return {Array<Object>} Heading metadata, including its source range.
+ */
+function getMarkdownHeadings(markdown) {
+    const lines = markdown.split('\n');
+    const headings = [];
+    const headingPattern = /^(#{1,6})[ \t]+(.+?)(?:[ \t]+#+[ \t]*)?$/;
+
+    lines.forEach((line, lineIndex) => {
+        const match = line.match(headingPattern);
+        if (match) {
+            headings.push({
+                lineIndex,
+                level: match[1].length,
+                title: match[2].trim(),
+                prefix: match[1]
+            });
+        }
+    });
+
+    return headings.map((heading, headingIndex) => {
+        const nextBoundary = headings.slice(headingIndex + 1).find(next => next.level <= heading.level);
+        return {
+            ...heading,
+            endLineIndex: nextBoundary ? nextBoundary.lineIndex : lines.length
+        };
+    });
+}
+
+/**
+ * @brief Creates grouped Modify-menu options for items and their Markdown headings.
+ * @return {string} HTML option and optgroup elements.
+ */
+function getModifyOptions() {
+    return appData.items.map(item => {
+        const itemOption = `<option value="item:${escapeHtml(item.id)}">${escapeHtml(item.title)}（完整項目）</option>`;
+        const headingOptions = getMarkdownHeadings(item.content).map(heading => {
+            const indentation = '　'.repeat(heading.level - 1);
+            return `<option value="heading:${escapeHtml(item.id)}:${heading.lineIndex}">${indentation}${heading.prefix} ${escapeHtml(heading.title)}</option>`;
+        }).join('');
+        return `<optgroup label="${escapeHtml(item.title)}">${itemOption}${headingOptions}</optgroup>`;
+    }).join('');
+}
+
+/**
+ * @brief Resolves the selected Modify-menu value to an item or heading target.
+ * @param {string} selection Current selection value.
+ * @return {Object|null} The matching edit target, or null when it no longer exists.
+ */
+function getModifyTarget(selection) {
+    const [type, itemId, lineIndex] = selection.split(':');
+    const item = appData.items.find(data => data.id === itemId);
+    if (!item) return null;
+
+    if (type === 'item') return { type, item };
+
+    const heading = getMarkdownHeadings(item.content)
+        .find(candidate => candidate.lineIndex === Number(lineIndex));
+    return heading ? { type, item, heading } : null;
+}
+
+/**
+ * @brief Replaces one Markdown heading and the content it owns.
+ * @param {Object} target The heading target returned by getModifyTarget.
+ * @param {string} title Replacement heading text.
+ * @param {string} sectionContent Replacement section content.
+ * @return {void}
+ */
+function updateMarkdownHeading(target, title, sectionContent) {
+    const lines = target.item.content.split('\n');
+    const replacement = [`${target.heading.prefix} ${title.trim()}`];
+    if (sectionContent !== '') replacement.push(...sectionContent.split('\n'));
+    lines.splice(
+        target.heading.lineIndex,
+        target.heading.endLineIndex - target.heading.lineIndex,
+        ...replacement
+    );
+    target.item.content = lines.join('\n');
+}
+
+/**
+ * @brief Removes a Markdown heading and the content that belongs to it.
+ * @param {Object} target The heading target returned by getModifyTarget.
+ * @return {void}
+ */
+function deleteMarkdownHeading(target) {
+    const lines = target.item.content.split('\n');
+    lines.splice(
+        target.heading.lineIndex,
+        target.heading.endLineIndex - target.heading.lineIndex
+    );
+    target.item.content = lines.join('\n');
 }
 
 document.getElementById('loadFileBtn').onclick = async () => {
@@ -127,7 +267,7 @@ document.getElementById('modifyBtn').onclick = () => {
     modal.style.display = 'block';
     modalBody.innerHTML = `
         <label style="display:block">Select Item</label>
-        <select id="modSelect" style="width:100%">${getSelectOptions()}</select>
+        <select id="modSelect" style="width:100%">${getModifyOptions()}</select>
         <label style="display:block; margin-top:10px">Title</label>
         <input id="modTitle" style="width:100%">
         <label style="display:block; margin-top:10px">Content</label>
@@ -136,22 +276,40 @@ document.getElementById('modifyBtn').onclick = () => {
     `;
     const modSelect = document.getElementById('modSelect');
     const updateFields = () => {
-        const item = appData.items.find(d => d.id === modSelect.value);
-        document.getElementById('modTitle').value = item.title;
-        document.getElementById('modContent').value = item.content;
+        const target = getModifyTarget(modSelect.value);
+        if (!target) return;
+
+        if (target.type === 'item') {
+            document.getElementById('modTitle').value = target.item.title;
+            document.getElementById('modContent').value = target.item.content;
+            return;
+        }
+
+        const lines = target.item.content.split('\n');
+        document.getElementById('modTitle').value = target.heading.title;
+        document.getElementById('modContent').value = lines
+            .slice(target.heading.lineIndex + 1, target.heading.endLineIndex)
+            .join('\n');
     };
     modSelect.onchange = updateFields;
     updateFields();
     document.getElementById('updateBtn').onclick = async () => {
-        // Find the index of the item based on the *current* value of the select menu
-        const indexToUpdate = appData.items.findIndex(d => d.id === modSelect.value);
-        if (indexToUpdate !== -1) {
-            appData.items[indexToUpdate].title = document.getElementById('modTitle').value;
-            appData.items[indexToUpdate].content = document.getElementById('modContent').value;
-            await saveData();
-            render();
-            modal.style.display = 'none';
+        const target = getModifyTarget(modSelect.value);
+        if (!target) return;
+
+        if (target.type === 'item') {
+            target.item.title = document.getElementById('modTitle').value;
+            target.item.content = document.getElementById('modContent').value;
+        } else {
+            updateMarkdownHeading(
+                target,
+                document.getElementById('modTitle').value,
+                document.getElementById('modContent').value
+            );
         }
+        await saveData();
+        render();
+        modal.style.display = 'none';
     };
 };
 
@@ -160,13 +318,20 @@ document.getElementById('deleteBtn').onclick = () => {
     if (appData.items.length === 0) return alert('No data to delete');
     modal.style.display = 'block';
     modalBody.innerHTML = `
-        <label style="display:block">Select Item to Delete</label>
-        <select id="delSelect" style="width:100%">${getSelectOptions()}</select>
+        <label style="display:block">Select Item or Heading to Delete</label>
+        <select id="delSelect" style="width:100%">${getModifyOptions()}</select>
         <button id="confirmDelBtn" style="background:red; margin-top:10px">Confirm Delete</button>
     `;
     document.getElementById('confirmDelBtn').onclick = async () => {
         if(confirm('Are you sure?')) {
-            appData.items = appData.items.filter(d => d.id !== document.getElementById('delSelect').value);
+            const target = getModifyTarget(document.getElementById('delSelect').value);
+            if (!target) return;
+
+            if (target.type === 'item') {
+                appData.items = appData.items.filter(data => data.id !== target.item.id);
+            } else {
+                deleteMarkdownHeading(target);
+            }
             await saveData();
             render();
             modal.style.display = 'none';
