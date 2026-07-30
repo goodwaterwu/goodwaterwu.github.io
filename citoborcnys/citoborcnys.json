@@ -1,4 +1,10 @@
 {
   "title": "SyncRobotic Cheat Sheet",
-  "items": []
+  "items": [
+    {
+      "id": "600d0bc1-313c-4f37-b3af-7009fe305d64",
+      "title": "Ndivia Jetson AGX Orin",
+      "content": "## Build kernel\n### Install toolchain\n[jetson-linux-r3644](https://developer.nvidia.com/embedded/jetson-linux-r3644)  \ntar -xjvf aarch64--glibc--stable-2022.08-1.tar.bz2 -C /opt/toolchains/nvidia/  \n\n### Install required packages\nsudo apt install build-essential bc flex bison libssl-dev zstd  \n\n### Download sample root file system\ncd /home/victor/working_directory/nvidia/JetPack_6.2.1_Linux_JETSON_AGX_ORIN_TARGETS/Linux_for_Tegra/  \nsudo ./apply_binaries.sh\n\n### Download driver package\ncd /home/victor/working_directory/nvidia/JetPack_6.2.1_Linux_JETSON_AGX_ORIN_TARGETS/Linux_for_Tegra/source/  \n./source_sync.sh -k -t jetson_36.4.4  \n\n### Modify kernel config\nvim kernel/kernel-jammy-src/arch/arm64/configs/defconfig  \n\n### Set environment variables\nexport ARCH=arm64  \nexport TOOLCHAIN_DIR=/opt/toolchains/nvidia/aarch64--glibc--stable-2022.08-1/bin  \nexport CROSS_COMPILE_AARCH64_PATH=${TOOLCHAIN_DIR}  \nexport PATH=${TOOLCHAIN_DIR}:${PATH}  \nexport CROSS_COMPILE=${CROSS_COMPILE_AARCH64_PATH}/aarch64-buildroot-linux-gnu-  \nexport INSTALL_PATH=~/working_directory/nvidia/JetPack_6.2.1_Linux_JETSON_AGX_ORIN_TARGETS  \nexport INSTALL_MOD_PATH=${INSTALL_PATH}/Linux_for_Tegra/rootfs/  \nexport KERNEL_HEADERS=${INSTALL_PATH}/Linux_for_Tegra/source/kernel/kernel-jammy-src  \n\n### Build and install kernel and in-tree modules\nmake -C kernel  \nsudo -E make install -C kernel  \ncp -av kernel/kernel-jammy-src/arch/arm64/boot/Image ${INSTALL_PATH}/Linux_for_Tegra/kernel/Image  \n\n### Build and install out-of-tree modules\nmake modules  \nsudo -E make modules_install  \ncd ..  \nsudo ./tools/l4t_update_initrd.sh  \n\n### Build the DTBs\ncd source  \nmake dtbs  \ncp -av kernel-devicetree/generic-dts/dtbs/* ${INSTALL_PATH}/Linux_for_Tegra/kernel/dtb/  \n\n## Reflash device\n### Internal eMMC\nsudo ./flash.sh jetson-agx-orin-devkit internal\n\n### SSD\nsudo ./flash.sh jetson-agx-orin-devkit nvme0n1p1\n\n\n### USB\nsudo ./flash.sh jetson-agx-orin-devkit sda1\n\n### SD card\nsudo ./flash.sh jetson-agx-orin-devkit mmcblk0p1\n"
+    }
+  ]
 }
