@@ -45,6 +45,11 @@ function render() {
         mainLink.style.fontWeight = 'bold';
         mainLink.style.display = 'block';
         mainLink.style.marginBottom = '10px';
+        mainLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(`section-${item.id}`);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
         sidebar.appendChild(mainLink);
 
         // Section container - use unique ID
@@ -94,6 +99,11 @@ function createSubLink(text, id, padding) {
     link.style.fontSize = '0.9em';
     link.style.color = '#aaa';
     link.style.display = 'block';
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     return link;
 }
 
