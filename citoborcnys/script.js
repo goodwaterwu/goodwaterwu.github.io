@@ -29,6 +29,25 @@ async function saveData() {
 }
 
 /**
+ * @brief Creates a small move button (▲ or ▼) for the sidebar.
+ * @param {string} label Button label text.
+ * @param {Function} onClick Click handler.
+ * @return {HTMLButtonElement} The configured button.
+ */
+function createMoveBtn(label, onClick) {
+    const btn = document.createElement('button');
+    btn.textContent = label;
+    btn.className = 'move-btn';
+    btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        onClick();
+        await saveData();
+        render();
+    });
+    return btn;
+}
+
+/**
  * @brief Renders the sidebar and Markdown content from the current data.
  * @return {void}
  */
@@ -38,19 +57,43 @@ function render() {
     document.querySelector('h1').textContent = appData.title;
     
     appData.items.forEach((item, index) => {
-        // Main title link - use unique ID
+        // Wrapper row for main link + move buttons
+        const itemRow = document.createElement('div');
+        itemRow.className = 'sidebar-row';
+
+        // Move-up button for top-level item
+        const upBtn = createMoveBtn('▲', () => {
+            if (index > 0) {
+                [appData.items[index - 1], appData.items[index]] =
+                    [appData.items[index], appData.items[index - 1]];
+            }
+        });
+        upBtn.disabled = index === 0;
+
+        // Move-down button for top-level item
+        const downBtn = createMoveBtn('▼', () => {
+            if (index < appData.items.length - 1) {
+                [appData.items[index], appData.items[index + 1]] =
+                    [appData.items[index + 1], appData.items[index]];
+            }
+        });
+        downBtn.disabled = index === appData.items.length - 1;
+
+        // Main title link
         const mainLink = document.createElement('a');
         mainLink.href = `#section-${item.id}`;
         mainLink.textContent = item.title;
         mainLink.style.fontWeight = 'bold';
-        mainLink.style.display = 'block';
-        mainLink.style.marginBottom = '10px';
         mainLink.addEventListener('click', (e) => {
             e.preventDefault();
             const target = document.getElementById(`section-${item.id}`);
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-        sidebar.appendChild(mainLink);
+
+        itemRow.appendChild(upBtn);
+        itemRow.appendChild(downBtn);
+        itemRow.appendChild(mainLink);
+        sidebar.appendChild(itemRow);
 
         // Section container - use unique ID
         const section = document.createElement('section');
@@ -65,15 +108,23 @@ function render() {
         
         // 3. Extract headings for the sidebar and assign collision-free anchors.
         const headings = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const mdHeadings = getMarkdownHeadings(item.content);
+
         headings.forEach((heading, headingIndex) => {
             const text = heading.textContent;
-            const id = `heading-${item.id}-${headingIndex}`;
-            heading.id = id;
+            const anchorId = `heading-${item.id}-${headingIndex}`;
+            heading.id = anchorId;
             
             const level = parseInt(heading.tagName.substring(1), 10);
-            // Ensure padding is non-negative and starts from 0px for H1
             const padding = Math.max(0, (level - 1) * 10) + 'px';
-            sidebar.appendChild(createSubLink(text, id, padding));
+            const mdH = mdHeadings[headingIndex];
+
+            // Find previous and next sibling at the same level under the same parent
+            const prevSibling = findPrevSibling(mdHeadings, headingIndex);
+            const nextSibling = findNextSibling(mdHeadings, headingIndex);
+
+            const headingRow = createSubLink(text, anchorId, padding, mdH, item, prevSibling, nextSibling);
+            sidebar.appendChild(headingRow);
         });
 
         const sectionTitle = document.createElement('h1');
@@ -85,26 +136,104 @@ function render() {
 }
 
 /**
- * @brief Creates a sidebar link to a Markdown heading.
- * @param {string} text Heading text to display.
- * @param {string} id Anchor identifier for the heading.
- * @param {string} padding Left padding that indicates the heading level.
- * @return {HTMLAnchorElement} The configured sidebar link.
+ * @brief Finds the previous sibling heading at the same level under the same parent.
+ * @param {Array<Object>} headings All headings from getMarkdownHeadings.
+ * @param {number} idx Index of the current heading.
+ * @return {Object|null} The previous sibling heading, or null if none.
  */
-function createSubLink(text, id, padding) {
+function findPrevSibling(headings, idx) {
+    const current = headings[idx];
+    for (let i = idx - 1; i >= 0; i--) {
+        if (headings[i].level === current.level) return headings[i];
+        if (headings[i].level < current.level) return null; // crossed parent boundary
+    }
+    return null;
+}
+
+/**
+ * @brief Finds the next sibling heading at the same level under the same parent.
+ * @param {Array<Object>} headings All headings from getMarkdownHeadings.
+ * @param {number} idx Index of the current heading.
+ * @return {Object|null} The next sibling heading, or null if none.
+ */
+function findNextSibling(headings, idx) {
+    const current = headings[idx];
+    for (let i = idx + 1; i < headings.length; i++) {
+        if (headings[i].level === current.level) return headings[i];
+        if (headings[i].level < current.level) return null; // crossed parent boundary
+    }
+    return null;
+}
+
+/**
+ * @brief Swaps two sibling sections in the Markdown source of an item.
+ * @param {Object} item The cheat-sheet item whose content will be mutated.
+ * @param {Object} headingA First heading (must have lineIndex and endLineIndex).
+ * @param {Object} headingB Second heading (must have lineIndex and endLineIndex).
+ * @return {void}
+ */
+function swapMarkdownSections(item, headingA, headingB) {
+    const lines = item.content.split('\n');
+    // Ensure A comes before B
+    const [first, second] = headingA.lineIndex < headingB.lineIndex
+        ? [headingA, headingB]
+        : [headingB, headingA];
+
+    const firstLines = lines.slice(first.lineIndex, first.endLineIndex);
+    const secondLines = lines.slice(second.lineIndex, second.endLineIndex);
+    const between = lines.slice(first.endLineIndex, second.lineIndex);
+
+    lines.splice(
+        first.lineIndex,
+        second.endLineIndex - first.lineIndex,
+        ...secondLines,
+        ...between,
+        ...firstLines
+    );
+    item.content = lines.join('\n');
+}
+
+/**
+ * @brief Creates a sidebar row with move buttons and a link for a Markdown heading.
+ * @param {string} text Heading text.
+ * @param {string} anchorId Anchor id for the heading element.
+ * @param {string} padding Left padding CSS string.
+ * @param {Object} mdH Heading metadata from getMarkdownHeadings.
+ * @param {Object} item Parent cheat-sheet item.
+ * @param {Object|null} prevSibling Previous same-level sibling heading.
+ * @param {Object|null} nextSibling Next same-level sibling heading.
+ * @return {HTMLDivElement} Row element containing buttons and link.
+ */
+function createSubLink(text, anchorId, padding, mdH, item, prevSibling, nextSibling) {
+    const row = document.createElement('div');
+    row.className = 'sidebar-row';
+    row.style.paddingLeft = padding;
+
+    const upBtn = createMoveBtn('▲', () => {
+        if (prevSibling) swapMarkdownSections(item, mdH, prevSibling);
+    });
+    upBtn.disabled = !prevSibling;
+
+    const downBtn = createMoveBtn('▼', () => {
+        if (nextSibling) swapMarkdownSections(item, mdH, nextSibling);
+    });
+    downBtn.disabled = !nextSibling;
+
     const link = document.createElement('a');
-    link.href = `#${id}`;
+    link.href = `#${anchorId}`;
     link.textContent = '└ ' + text;
-    link.style.paddingLeft = padding;
     link.style.fontSize = '0.9em';
     link.style.color = '#aaa';
-    link.style.display = 'block';
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.getElementById(id);
+        const target = document.getElementById(anchorId);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    return link;
+
+    row.appendChild(upBtn);
+    row.appendChild(downBtn);
+    row.appendChild(link);
+    return row;
 }
 
 /**
